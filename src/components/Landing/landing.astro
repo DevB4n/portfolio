@@ -1,60 +1,111 @@
 <div id="landing">
     <div id="landing-tittles-container">
-            <h1 class="Landing-Tittle" id="My-Travel-Tittle" >
+        <h1 class="Landing-Tittle" id="My-Travel-Tittle">
             <a href="/My_Travel">MY TRAVEL</a>
         </h1>
+
         <h1 class="Landing-Tittle" id="Quick-Overview-Tittle">
             <a href="">QUICK OVERVIEW</a>
         </h1>
     </div>
-
 </div>
 
-
-
-
 <style>
-    body{
-        margin:0;
+    body {
+        margin: 0;
     }
-    /*background image style */
-    #landing{
+
+    /* PC */
+
+    #landing {
         width: 100vw;
         height: 100vh;
-        background-image:url("/landing/cloudy-background-image.png");
+
+        background-image: url("/landing/cloudy-background-image.png");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+
         display: flex;
-        flex-direction:column;
         justify-content: center;
-        align-items:center;
+        align-items: center;
     }
 
-    /*landing tittles container */
-    #landing-tittles-container{
+    #landing-tittles-container {
         width: 30vw;
         height: 30vh;
-        display:flex;
+
+        display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content:center;
+        justify-content: center;
+
         margin-right: 15vw;
-        border: 1px solid rgb(133, 115, 76,0.5);
-        background-color: rgba(177, 112, 67, 0.01);
+
+        border: 1px solid rgba(133, 115, 76, 0.5);
+        background-color: rgba(177, 112, 67, 0.05);
         backdrop-filter: blur(8px);
-        
+
+        gap: 10px;
     }
-    /*tittles style */
-    .Landing-Tittle a{
+
+    .Landing-Tittle a {
         display: inline-block;
         text-decoration: none;
-        color:rgb(245, 245, 245,0.8);
-        transition: transform 0.25s ease, color 0.25s ease;
+
+        color: rgba(245, 245, 245, 0.8);
         text-shadow: 0 4px 20px rgba(46, 45, 36, 0.6);
+
         font-size: 45px;
+
+        transition: transform 0.25s ease, color 0.25s ease;
     }
-    .Landing-Tittle a:hover{
+
+    .Landing-Tittle a:hover {
         transform: scale(1.1);
+    }
+
+    /* TABLETS */
+
+    @media (max-width: 1024px) {
+        #landing-tittles-container {
+            width: 60vw;
+            height: auto;
+            margin-right: 0;
+            padding: 20px;
+        }
+
+        .Landing-Tittle a {
+            font-size: 38px;
+        }
+    }
+
+    /* SMARTPHONE */
+
+    @media (max-width: 768px) {
+        #landing-tittles-container {
+            width: 80vw;
+            height: auto;
+            margin-right: 0;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .Landing-Tittle a {
+            font-size: 30px;
+        }
+    }
+
+    /* SMALL SPMARTPHONES */
+
+    @media (max-width: 480px) {
+        #landing-tittles-container {
+            width: 90vw;
+            padding: 10px;
+        }
+
+        .Landing-Tittle a {
+            font-size: 24px;
+        }
     }
 </style>
