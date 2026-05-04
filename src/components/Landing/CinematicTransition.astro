@@ -332,6 +332,25 @@
   // Expose globally
   (window as any).startCinematicTransition = startCinematicTransition;
 
+  // Reset overlay when user navigates back (bfcache restore)
+  function resetTransition() {
+    const overlay = document.getElementById('cinematic-overlay');
+    if (overlay) {
+      overlay.classList.remove('active');
+    }
+    document.body.classList.remove('transitioning');
+  }
+
+  // pageshow fires when page is restored from bfcache (back/forward)
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      resetTransition();
+    }
+  });
+
+  // Also reset on regular page load (covers hard navigations)
+  resetTransition();
+
   // Auto-bind any links with data-transition-target
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll<HTMLAnchorElement>('[data-transition-target]').forEach((link) => {
