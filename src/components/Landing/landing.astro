@@ -21,7 +21,7 @@
         width: 100vw;
         height: 100vh;
 
-        background-image: url("/landing/cloudy-background-image.png");
+        background-image: url("/landing/cloudy-background-image.avif");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -32,7 +32,7 @@
     }
 
     #landing-tittles-container {
-        width: 30vw;
+        width: 40vw;
         height: 30vh;
 
         display: flex;
@@ -40,11 +40,10 @@
         align-items: center;
         justify-content: center;
 
-        margin-right: 15vw;
+        margin-bottom: 20vh;
 
-        border: 1px solid rgba(133, 115, 76, 0.5);
-        background-color: rgba(177, 112, 67, 0.05);
-        backdrop-filter: blur(8px);
+        
+        
 
         gap: 10px;
     }
@@ -83,6 +82,11 @@
     /* SMARTPHONE */
 
     @media (max-width: 768px) {
+        #landing{
+            background-image: url("/landing/mobile_sky_clouds.avif");
+
+        }
+
         #landing-tittles-container {
             width: 80vw;
             height: auto;
@@ -99,9 +103,16 @@
     /* SMALL SPMARTPHONES */
 
     @media (max-width: 480px) {
+        #landing{
+            background-image: url("/landing/mobile_sky_clouds.avif");
+
+        }
+
         #landing-tittles-container {
             width: 90vw;
+            height: auto;
             padding: 10px;
+            margin-bottom:40vh;
         }
 
         .Landing-Tittle a {
