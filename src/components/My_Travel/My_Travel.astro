@@ -1,31 +1,312 @@
 <div id="Map-Background">
-  <img src="/my_travel/mapa_tesoro_islas(1).png" />
+  <div id="scroll-unroll-overlay">
+    <div class="scroll-roll scroll-roll-top"></div>
+
+    <div class="scroll-parchment">
+      <div class="parchment-texture"></div>
+    </div>
+
+    <div class="scroll-roll scroll-roll-bottom"></div>
+  </div>
+
+  <div id="map-content">
+    <img src="/my_travel/mapa_tesoro_islas(1).png" alt="Treasure Map" />
+  </div>
 </div>
 
 
 <style>
-    /*Map background Style */
-    body{
-        margin:0;
+    /*  BASE RESET  */
+    body {
+        margin: 0;
         padding: 0;
         box-sizing: border-box;
+        overflow: hidden;
     }
-    #Map-Background{
+
+    /*  MAP BACKGROUND  */
+    #Map-Background {
         width: 100vw;
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgb(151, 118, 68,0.7);
+        background-color: rgba(151, 118, 68, 0.7);
         backdrop-filter: blur(8px);
+        position: relative;
+        overflow: hidden;
     }
-    
-    #Map-Background img{
+
+    /*  MAP CONTENT (behind the scroll)  */
+    #map-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        opacity: 0;
+        /* Empieza a aparecer mientras el overlay aún se desvanece — transición fluida */
+        animation: map-fade-in 600ms 1900ms ease forwards;
+    }
+
+    #map-content img {
         max-width: 100%;
         max-height: 100%;
         object-fit: contain;
     }
 
+    @keyframes map-fade-in {
+        from { opacity: 0; transform: scale(0.97); }
+        to   { opacity: 1; transform: scale(1); }
+    }
 
+    /*  SCROLL UNROLL OVERLAY  */
+    #scroll-unroll-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        pointer-events: none;
+        animation: overlay-fade-out 400ms 2100ms ease forwards;
+    }
 
+    @keyframes overlay-fade-out {
+        from { opacity: 1; }
+        to   { opacity: 0; pointer-events: none; }
+    }
+
+    /*  SCROLL ROLLS (wooden dowels)  */
+    .scroll-roll {
+        width: 92%;
+        max-width: 900px;
+        height: 48px;
+        border-radius: 24px;
+        position: relative;
+        z-index: 12;
+        flex-shrink: 0;
+        background:
+            linear-gradient(180deg,
+                #a0764a 0%,
+                #c99a5b 15%,
+                #e0be7a 30%,
+                #d4a85e 50%,
+                #b8894a 70%,
+                #9a6b3a 85%,
+                #7a5230 100%
+            );
+        box-shadow:
+            0 4px 16px rgba(0, 0, 0, 0.4),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Knobs on the ends of the dowels */
+    .scroll-roll::before,
+    .scroll-roll::after {
+        content: "";
+        position: absolute;
+        top: -8px;
+        width: 36px;
+        height: calc(100% + 16px);
+        border-radius: 8px;
+        background:
+            linear-gradient(180deg,
+                #8a6538 0%,
+                #b08650 30%,
+                #c99a5b 50%,
+                #a07842 70%,
+                #7a5230 100%
+            );
+        box-shadow:
+            0 2px 8px rgba(0, 0, 0, 0.4),
+            inset 0 1px 2px rgba(255, 255, 255, 0.2);
+    }
+
+    .scroll-roll::before { left: -12px; }
+    .scroll-roll::after  { right: -12px; }
+
+    /*  TOP ROLL  */
+    .scroll-roll-top {
+        margin-top: 2vh;
+        animation: roll-top-settle 400ms 200ms ease-out forwards;
+        opacity: 0;
+    }
+
+    @keyframes roll-top-settle {
+        0%   { opacity: 0; transform: translateY(-60px); }
+        60%  { opacity: 1; transform: translateY(5px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* BOTTOM ROLL (starts near top, rolls down)  */
+    .scroll-roll-bottom {
+        opacity: 0;
+        animation:
+            roll-bottom-appear 200s 100ms ease forwards,
+            roll-bottom-descend 1200ms 400ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes roll-bottom-appear {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    @keyframes roll-bottom-descend {
+        0%   { transform: translateY(0); }
+        100% { transform: translateY(calc(96vh - 48px - 4vh)); }
+    }
+
+    /*  PARCHMENT BODY  */
+    .scroll-parchment {
+        width: 88%;
+        max-width: 860px;
+        height: 0;
+        position: relative;
+        z-index: 11;
+        overflow: hidden;
+        /* Parchment appearance */
+        background:
+            radial-gradient(ellipse at 30% 20%, rgba(232, 213, 163, 0.9) 0%, transparent 50%),
+            radial-gradient(ellipse at 70% 80%, rgba(212, 188, 130, 0.8) 0%, transparent 50%),
+            linear-gradient(180deg,
+                #e8d5a3 0%,
+                #dcc998 20%,
+                #d4bc82 40%,
+                #dcc998 60%,
+                #e0c890 80%,
+                #d4bc82 100%
+            );
+        box-shadow:
+            4px 0 12px rgba(0, 0, 0, 0.15),
+            -4px 0 12px rgba(0, 0, 0, 0.15);
+
+        animation: parchment-unroll 1600ms 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes parchment-unroll {
+        0%   { height: 0; }
+        100% { height: calc(96vh - 48px - 4vh); }
+    }
+
+    /* Parchment texture overlay (stains, grain) */
+    .parchment-texture {
+        position: absolute;
+        inset: 0;
+        opacity: 0.4;
+        background-image:
+            /* Subtle stain spots */
+            radial-gradient(circle at 20% 30%, rgba(160, 130, 80, 0.3) 0%, transparent 40%),
+            radial-gradient(circle at 75% 65%, rgba(140, 110, 60, 0.25) 0%, transparent 35%),
+            radial-gradient(circle at 50% 80%, rgba(150, 120, 70, 0.2) 0%, transparent 45%),
+            /* Paper grain */
+            repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 3px,
+                rgba(139, 109, 63, 0.05) 3px,
+                rgba(139, 109, 63, 0.05) 4px
+            );
+        animation: texture-reveal 800ms 1200ms ease forwards;
+        opacity: 0;
+    }
+
+    @keyframes texture-reveal {
+        from { opacity: 0; }
+        to   { opacity: 0.4; }
+    }
+
+    /*  Vignette over parchment edges  */
+    .scroll-parchment::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background:
+            linear-gradient(90deg,
+                rgba(120, 90, 50, 0.25) 0%,
+                transparent 8%,
+                transparent 92%,
+                rgba(120, 90, 50, 0.25) 100%
+            );
+        pointer-events: none;
+    }
+
+    /* Horizontal fold lines on parchment */
+    .scroll-parchment::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background-image:
+            repeating-linear-gradient(
+                180deg,
+                transparent,
+                transparent 18vh,
+                rgba(139, 109, 63, 0.08) 18vh,
+                rgba(139, 109, 63, 0.08) calc(18vh + 1px),
+                transparent calc(18vh + 1px)
+            );
+        pointer-events: none;
+        animation: texture-reveal 300ms 700ms ease forwards;
+        opacity: 0;
+    }
+
+    /*  RESPONSIVE  */
+    @media (max-width: 768px) {
+        .scroll-roll {
+            width: 96%;
+            height: 36px;
+            border-radius: 18px;
+        }
+
+        .scroll-roll::before,
+        .scroll-roll::after {
+            width: 28px;
+            top: -6px;
+            height: calc(100% + 12px);
+        }
+
+        .scroll-roll::before { left: -8px; }
+        .scroll-roll::after  { right: -8px; }
+
+        .scroll-parchment {
+            width: 92%;
+        }
+
+        .scroll-roll-top {
+            margin-top: 1vh;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .scroll-roll {
+            height: 28px;
+            border-radius: 14px;
+        }
+
+        .scroll-roll::before,
+        .scroll-roll::after {
+            width: 22px;
+            top: -5px;
+            height: calc(100% + 10px);
+            border-radius: 6px;
+        }
+    }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const overlay = document.getElementById('scroll-unroll-overlay');
+        if (overlay) {
+            setTimeout(() => {
+                overlay.remove();
+                document.body.style.overflow = '';
+            }, 2700);
+        }
+    });
+</script>
