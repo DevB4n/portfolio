@@ -351,8 +351,7 @@
   // Also reset on regular page load (covers hard navigations)
   resetTransition();
 
-  // Auto-bind any links with data-transition-target
-  document.addEventListener('DOMContentLoaded', () => {
+  function initTransitions() {
     document.querySelectorAll<HTMLAnchorElement>('[data-transition-target]').forEach((link) => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -360,5 +359,9 @@
         startCinematicTransition(target);
       });
     });
-  });
+  }
+
+  // Astro scripts with type="module" (the default) execute after the DOM is ready.
+  // We can just initialize directly.
+  initTransitions();
 </script>
