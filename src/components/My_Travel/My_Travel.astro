@@ -1,4 +1,9 @@
 <div id="Map-Background">
+  <!-- Back Button -->
+  <a href="/" class="back-btn" title="Volver al inicio">
+    <span class="back-icon">◀</span> back
+  </a>
+
   <div class="map-wrapper">
     <img src="/my_travel/mapa_tesoro_islas(1).png" alt="Treasure Map" />
     
@@ -15,6 +20,12 @@
     <a href="/Soft_Skills_island" class="island-link soft-skills" title="Soft Skills Island">
     </a>
   </div>
+  
+  <!-- Tip Modal -->
+  <div class="treasure-tip">
+    <span class="tip-icon">💡</span>
+    <p><strong>Tip:</strong> Maybe click on some island could guide you to find the hidden treasure.</p>
+  </div>
 </div>
 
 <style>
@@ -25,6 +36,7 @@
     }
     
     #Map-Background {
+        position: relative;
         width: 100vw;
         height: 100vh;
         display: flex;
@@ -67,7 +79,7 @@
     }
 
     .island-link:hover {
-        background-color: rgba(255, 255, 255, 0.15);
+        background-color: rgba(255, 255, 255, 0.18);
     }
 
     /* islands link position and size */
@@ -101,5 +113,101 @@
 
     .island-link span {
         pointer-events: none; /* Ensures the span doesn't block clicks */
+    }
+
+    /* Tip Modal Styles */
+    .treasure-tip {
+        position: absolute;
+        bottom: 30px;
+        right: -350px; /* Start off-screen */
+        width: 280px;
+        background: rgba(40, 30, 20, 0.85); /* Dark parchment-like backdrop */
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(212, 175, 55, 0.4); /* Subtle gold border */
+        border-radius: 12px;
+        padding: 16px 20px;
+        color: #f4e4bc;
+        font-family: 'Georgia', serif;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(212, 175, 55, 0.1);
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        z-index: 100;
+        animation: slide-in-out 8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        animation-delay: 1.5s; /* Wait a little bit after page load */
+    }
+
+    .treasure-tip .tip-icon {
+        font-size: 24px;
+        filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+    }
+
+    .treasure-tip p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.5;
+        letter-spacing: 0.5px;
+    }
+
+    .treasure-tip strong {
+        color: #d4af37; /* Gold color */
+        letter-spacing: 1px;
+    }
+
+    @keyframes slide-in-out {
+        0% {
+            right: -350px;
+            opacity: 0;
+        }
+        10% {
+            right: 30px;
+            opacity: 1;
+        }
+        85% {
+            right: 30px;
+            opacity: 1;
+        }
+        100% {
+            right: -350px;
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+
+    /* Back Button Styles */
+    .back-btn {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        background: rgba(40, 30, 20, 0.75);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(212, 175, 55, 0.5);
+        border-radius: 30px;
+        color: #f4e4bc;
+        text-decoration: none;
+        font-family: 'Georgia', serif;
+        font-size: 15px;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .back-btn:hover {
+        background: rgba(40, 30, 20, 0.95);
+        border-color: rgba(212, 175, 55, 0.9);
+        transform: translateX(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+        color: #fff;
+    }
+
+    .back-btn .back-icon {
+        font-size: 22px;
+        color: #d4af37;
+        margin-top: -2px;
     }
 </style>
