@@ -1,0 +1,94 @@
+---
+// src/components/FrontendIsland/ProjectChapter.astro
+interface Props {
+  title: string;
+  description: string;
+  stack: string[];
+  align?: 'left' | 'right';
+  index: number;
+}
+
+const { title, description, stack, align = 'left', index } = Astro.props;
+---
+
+<section class="min-h-[80vh] py-24 px-8 flex items-center relative project-chapter group" data-index={index}>
+  <div class={`max-w-6xl mx-auto w-full flex flex-col md:flex-row gap-16 items-center ${align === 'right' ? 'md:flex-row-reverse' : ''}`}>
+    
+    {/* Abstract visual representation instead of a generic card image */}
+    <div class="w-full md:w-1/2 relative aspect-[4/3] md:aspect-square overflow-hidden bg-canvas border border-warm-gray/20 shadow-sm project-visual">
+      <div class="absolute inset-0 bg-gradient-to-br from-warm-gray/5 to-muted-navy/5"></div>
+      
+      {/* Decorative inner elements representing the project */}
+      <div class="absolute top-1/4 left-1/4 w-1/2 h-1/2 border border-muted-gold/20 rotate-3 transition-transform duration-700 group-hover:rotate-6 group-hover:scale-105"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-1/3 h-1/3 bg-charcoal/5 rounded-full blur-xl transition-all duration-700 group-hover:bg-charcoal/10 group-hover:blur-2xl"></div>
+      
+      <div class="absolute inset-0 flex items-center justify-center text-warm-gray/30 font-serif italic text-4xl opacity-50 select-none">
+        Chapter {index}
+      </div>
+    </div>
+
+    {/* Text content */}
+    <div class="w-full md:w-1/2 space-y-8 project-content">
+      <div class="space-y-4">
+        <h3 class="text-3xl md:text-5xl font-serif text-ink">{title}</h3>
+        <p class="text-lg md:text-xl text-charcoal/80 font-sans font-light leading-relaxed">
+          {description}
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-3 pt-4">
+        {stack.map((tech) => (
+          <span class="text-xs tracking-widest uppercase text-muted-navy font-semibold border-b border-muted-navy/20 pb-1">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const chapters = document.querySelectorAll('.project-chapter');
+
+    chapters.forEach((chapter) => {
+      const visual = chapter.querySelector('.project-visual');
+      const content = chapter.querySelector('.project-content');
+
+      gsap.fromTo(visual, 
+        { opacity: 0, y: 50, scale: 0.95 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1, 
+          duration: 1.5, 
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: chapter,
+            start: "top 75%",
+          }
+        }
+      );
+
+      gsap.fromTo(content,
+        { opacity: 0, x: chapter.querySelector('div')?.classList.contains('md:flex-row-reverse') ? 50 : -50 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: chapter,
+            start: "top 70%",
+          }
+        }
+      );
+    });
+  });
+</script>
