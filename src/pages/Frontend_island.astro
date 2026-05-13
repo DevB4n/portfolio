@@ -1,0 +1,91 @@
+---
+import '../styles/frontend_island.css';
+import CanvasBackground from '../components/Frontend_island/CanvasBackground.astro';
+import HeroSection from '../components/Frontend_island/HeroSection.astro';
+import StoryBlock from '../components/Frontend_island/StoryBlock';
+import ApiDiscovery from '../components/Frontend_island/ApiDiscovery';
+import TechTags from '../components/Frontend_island/TechTags';
+import ProjectChapter from '../components/Frontend_island/ProjectChapter.astro';
+import CustomCursor from '../components/Frontend_island/CustomCursor';
+import NavigationBar from '../components/Shared/NavigationBar';
+
+const frontendSections = [
+  { id: 'intro', label: 'Intro' },
+  { id: 'story', label: 'Story' },
+  { id: 'api', label: 'APIs' },
+  { id: 'stack', label: 'Stack' },
+  { id: 'projects', label: 'Projects' }
+];
+
+const projects = [
+  {
+    title: "coffee",
+    description: "Relax your mind, take a coffee",
+    stack: ["Astro"],
+    align: "left",
+  },
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Frontend Island | Narrative Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  </head>
+  <body class="antialiased selection:bg-muted-gold/30 selection:text-ink">
+    
+    <CanvasBackground />
+
+    <NavigationBar sections={frontendSections} client:load />
+
+    <main class="relative z-10 w-full flex flex-col">
+      <div id="intro">
+        <HeroSection />
+      </div>
+      
+      <div class="w-full h-32 bg-gradient-to-b from-transparent to-canvas/50 pointer-events-none"></div>
+      
+      <div id="story">
+        <StoryBlock client:load />
+      </div>
+      
+      <div class="w-full flex justify-center py-16 opacity-30">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-muted-navy">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
+      </div>
+
+      <div id="api">
+        <ApiDiscovery client:load />
+      </div>
+
+      <div id="stack">
+        <TechTags client:load />
+      </div>
+
+      <div id="projects" class="py-24 space-y-32">
+        {projects.map((project, idx) => (
+          <ProjectChapter 
+            title={project.title}
+            description={project.description}
+            stack={project.stack}
+            align={project.align as 'left' | 'right'}
+            index={idx + 1}
+          />
+        ))}
+      </div>
+
+      <CustomCursor client:load />
+    </main>
+
+  </body>
+</html>

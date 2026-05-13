@@ -1,0 +1,52 @@
+---
+import '../styles/frontend_island.css';
+import NavigationBar from '../components/Shared/NavigationBar';
+import GateAnimation from '../components/Backend_island/GateAnimation';
+import BackendHero from '../components/Backend_island/BackendHero.astro';
+import SystemsDiagram from '../components/Backend_island/SystemsDiagram';
+import BackendProjects from '../components/Backend_island/BackendProjects.astro';
+import InfrastructureBlock from '../components/Backend_island/InfrastructureBlock.astro';
+import BackendPhilosophy from '../components/Backend_island/BackendPhilosophy.astro';
+
+const backendSections = [
+  { id: 'hero', label: 'Terminal' },
+  { id: 'systems', label: 'Architecture' },
+  { id: 'projects', label: 'Engineering' },
+  { id: 'infrastructure', label: 'DevOps' },
+  { id: 'philosophy', label: 'Mindset' }
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Backend Island | The Logical Kingdom</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="antialiased bg-backend-bg text-backend-text selection:bg-backend-border selection:text-white overflow-x-hidden">
+    
+    <GateAnimation client:load />
+
+    <NavigationBar sections={backendSections} theme="backend" client:load />
+
+    <main class="relative z-10 w-full flex flex-col">
+      <BackendHero />
+      
+      <SystemsDiagram client:load />
+      
+      <BackendProjects />
+      
+      <InfrastructureBlock />
+      
+      <BackendPhilosophy />
+    </main>
+
+  </body>
+</html>

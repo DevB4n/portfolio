@@ -1,0 +1,112 @@
+---
+// BackendHero.astro
+---
+
+<section id="hero" class="min-h-screen flex items-center justify-center pt-24 pb-16 px-6 relative z-10">
+  <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+    
+    <!-- Left: Terminal Mockup -->
+    <div class="terminal-container w-full max-w-lg mx-auto lg:mx-0 bg-backend-surface border border-backend-border rounded-lg shadow-2xl overflow-hidden font-mono text-sm">
+      
+      {/* Terminal Header */}
+      <div class="flex items-center px-4 py-3 bg-[#1A1A1A] border-b border-backend-border">
+        <div class="flex space-x-2">
+          <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+          <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+        </div>
+        <div class="mx-auto text-backend-muted text-xs">bash - b4n@server</div>
+      </div>
+
+      {/* Terminal Body */}
+      <div class="p-4 h-64 lg:h-80 overflow-y-auto text-backend-text flex flex-col justify-end relative">
+        <div class="absolute inset-0 bg-gradient-to-t from-backend-surface via-transparent to-transparent z-10 pointer-events-none"></div>
+        <div id="terminal-content" class="space-y-2 opacity-90 relative z-0">
+          <div class="flex">
+            <span class="text-green-400 mr-2">DevB4n@deploy:~$</span>
+            <span class="terminal-command"></span><span class="animate-pulse">_</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Title Block -->
+    <div class="title-block space-y-6 text-center lg:text-left">
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-backend-border bg-backend-surface/50 text-backend-muted text-xs tracking-widest uppercase">
+        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+        <span>System Online</span>
+      </div>
+      
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-sans font-bold tracking-tighter text-backend-text">
+        Backend: <br />
+        <span class="text-backend-muted">The logical kingdom.</span>
+      </h1>
+      
+      <p class="text-lg md:text-xl text-backend-muted font-sans font-light max-w-xl mx-auto lg:mx-0">
+        Systems, infrastructure, and logic-driven architecture. Building the invisible foundation that powers the visible world.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Simple terminal typing effect
+  document.addEventListener('DOMContentLoaded', () => {
+    const commands = [
+      "npm run dev",
+      "docker compose up -d",
+      "git pull origin main",
+      "sudo apt update",
+      "kubectl get pods",
+      "systemctl status nginx",
+      "tail -f /var/log/syslog"
+    ];
+    
+    const commandEl = document.querySelector('.terminal-command');
+    if (!commandEl) return;
+
+    let cmdIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingSpeed = 100;
+
+    function type() {
+      if (!commandEl) return;
+
+      const currentCmd = commands[cmdIndex];
+      
+      if (isDeleting) {
+        commandEl.textContent = currentCmd.substring(0, charIndex - 1);
+        charIndex--;
+        typingSpeed = 50;
+      } else {
+        commandEl.textContent = currentCmd.substring(0, charIndex + 1);
+        charIndex++;
+        typingSpeed = 100 + Math.random() * 50; // Randomize typing speed slightly
+      }
+
+      if (!isDeleting && charIndex === currentCmd.length) {
+        // Pause at the end
+        isDeleting = true;
+        typingSpeed = 2000;
+      } else if (isDeleting && charIndex === 0) {
+        // Move to next command
+        isDeleting = false;
+        cmdIndex = (cmdIndex + 1) % commands.length;
+        typingSpeed = 500;
+      }
+
+      setTimeout(type, typingSpeed);
+    }
+
+    setTimeout(type, 1000); // Initial delay
+  });
+</script>
+
+<style>
+  /* Optional: Add a subtle glow to the terminal container */
+  .terminal-container {
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.03), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+</style>

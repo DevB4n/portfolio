@@ -1,0 +1,66 @@
+---
+// BackendProjects.astro
+const projects = [
+  {
+    title: "Microservices Fleet",
+    purpose: "Event-driven architecture handling high-throughput data processing.",
+    stack: ["Go", "Kafka", "PostgreSQL", "Docker"],
+    challenge: "Resolving race conditions in distributed transactions across three distinct bounded contexts using a two-phase commit saga pattern."
+  },
+  {
+    title: "Global CDN Edge Router",
+    purpose: "Intelligent routing logic at the edge to serve localized content globally.",
+    stack: ["Rust", "Cloudflare Workers", "Redis"],
+    challenge: "Achieving sub-50ms latency globally while maintaining eventual consistency across replica regions."
+  },
+  {
+    title: "Secure Auth Gateway",
+    purpose: "Centralized authentication and rate-limiting proxy for all internal services.",
+    stack: ["Node.js", "Express", "JWT", "Redis"],
+    challenge: "Implementing a sliding-window rate limiter in Redis to prevent burst attacks without locking genuine high-volume internal consumers."
+  }
+];
+---
+
+<section id="projects" class="py-24 px-6 max-w-6xl mx-auto w-full">
+  <div class="mb-16">
+    <h2 class="text-3xl md:text-4xl font-sans font-bold text-backend-text mb-4">Engineering Projects</h2>
+    <p class="text-backend-muted max-w-2xl text-lg font-light">
+      Logic over aesthetics. These projects focus on the structural integrity, security, and performance of backend systems.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {projects.map((project) => (
+      <div class="group relative bg-backend-surface/50 border border-backend-border rounded-xl p-6 hover:bg-backend-surface transition-colors duration-300 flex flex-col h-full">
+        
+        {/* Glow effect on hover */}
+        <div class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col h-full">
+          <h3 class="text-xl font-semibold text-backend-text mb-2">{project.title}</h3>
+          <p class="text-backend-muted text-sm mb-6 flex-grow">{project.purpose}</p>
+
+          <div class="space-y-4">
+            <div>
+              <h4 class="text-[10px] uppercase tracking-wider text-backend-muted mb-2 font-semibold">Technical Challenge</h4>
+              <p class="text-backend-text text-sm leading-relaxed border-l-2 border-backend-border pl-3">
+                {project.challenge}
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-backend-border">
+              <div class="flex flex-wrap gap-2">
+                {project.stack.map((tech) => (
+                  <span class="px-2 py-1 text-[10px] font-mono tracking-wide rounded bg-[#1A1A1A] text-backend-muted border border-[#333]">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
