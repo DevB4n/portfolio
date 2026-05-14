@@ -1,0 +1,151 @@
+---
+import SoftSkillsNav from '../components/Soft_Skills_island/SoftSkillsNav';
+import SoftSkillsHero from '../components/Soft_Skills_island/SoftSkillsHero.astro';
+import SoftSkillsMindset from '../components/Soft_Skills_island/SoftSkillsMindset.astro';
+import SoftSkillsJourney from '../components/Soft_Skills_island/SoftSkillsJourney.astro';
+import SoftSkillsWork from '../components/Soft_Skills_island/SoftSkillsWork.astro';
+import SoftSkillsValues from '../components/Soft_Skills_island/SoftSkillsValues.astro';
+import SoftSkillsReflections from '../components/Soft_Skills_island/SoftSkillsReflections.astro';
+import SoftSkillsArtifacts from '../components/Soft_Skills_island/SoftSkillsArtifacts.astro';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Soft Skills Island | The Human Side</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="ss-body">
+
+    <SoftSkillsNav client:load />
+
+    <main>
+      <SoftSkillsHero />
+      <SoftSkillsMindset />
+      <SoftSkillsJourney />
+      <SoftSkillsWork />
+      <SoftSkillsValues />
+      <SoftSkillsReflections />
+      <SoftSkillsArtifacts />
+    </main>
+
+  </body>
+</html>
+
+<style is:global>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ss-body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4ede0;
+    color: #2c1f10;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .ss-section {
+    padding: 96px 0;
+  }
+
+  .ss-section-alt {
+    background: rgba(255, 252, 245, 0.45);
+  }
+
+  .ss-section-last {
+    padding-bottom: 80px;
+  }
+
+  .ss-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  @media (max-width: 768px) {
+    .ss-section { padding: 72px 0; }
+    .ss-container { padding: 0 24px; }
+  }
+
+  .ss-section-header {
+    margin-bottom: 56px;
+  }
+
+  .ss-section-num {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: rgba(197, 168, 128, 0.7);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .ss-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 400;
+    color: #2c1f10;
+    line-height: 1.1;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+
+  .ss-section-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: #7a5830;
+    line-height: 1.7;
+    max-width: 520px;
+  }
+
+  .ss-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+
+  .ss-reveal.ss-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  ::selection {
+    background: rgba(197, 168, 128, 0.3);
+    color: #2c1f10;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #f4ede0; }
+  ::-webkit-scrollbar-thumb { background: rgba(197, 168, 128, 0.4); border-radius: 4px; }
+</style>
+
+<script>
+  const reveals = document.querySelectorAll('.ss-reveal');
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('ss-visible');
+        }
+      });
+    },
+    { rootMargin: '0px 0px -80px 0px', threshold: 0.08 }
+  );
+  reveals.forEach((el) => observer.observe(el));
+</script>

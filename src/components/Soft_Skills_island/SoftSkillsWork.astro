@@ -1,0 +1,146 @@
+---
+// SoftSkillsWork.astro
+
+const blocks = [
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+    label: "01",
+    title: "Deep focus",
+    text: "I work in focused blocks — no tabs, no notifications, no context-switching. The hard problems need space to breathe. I give them that space before I give them answers.",
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
+    label: "02",
+    title: "Documentation habits",
+    text: "If it's not written down, it didn't happen. I document not for others — first for future me. Clear notes are a form of respect for your own time.",
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`,
+    label: "03",
+    title: "Iteration",
+    text: "Version one exists to be improved. Shipping imperfect is better than polishing forever. I prefer tangible progress over theoretical perfection.",
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+    label: "04",
+    title: "Ownership",
+    text: "I don't wait to be told something is done. I own the outcome, not just the task. If something breaks, I find out why before anyone has to ask.",
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/></svg>`,
+    label: "05",
+    title: "Async by default",
+    text: "I think better in writing than in real-time. Asynchronous communication is more considerate — it gives both sides space to think before responding.",
+  },
+];
+---
+
+<section id="howIWork" class="ss-section">
+  <div class="ss-container">
+    <div class="ss-section-header ss-reveal">
+      <span class="ss-section-num">03</span>
+      <h2 class="ss-section-title">How I Work</h2>
+      <p class="ss-section-desc">Principles that shape the craft, not rules from a handbook.</p>
+    </div>
+
+    <div class="ss-work-grid">
+      {blocks.map((b, i) => (
+        <div class="ss-work-block ss-reveal" style={`animation-delay:${i * 0.1}s`}>
+          <div class="ss-work-header">
+            <span class="ss-work-num">{b.label}</span>
+            <div class="ss-work-icon" set:html={b.icon} />
+          </div>
+          <h3 class="ss-work-title">{b.title}</h3>
+          <p class="ss-work-text">{b.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ss-work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .ss-work-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .ss-work-grid { grid-template-columns: 1fr; }
+  }
+
+  .ss-work-block {
+    padding: 32px 28px;
+    background: rgba(255, 252, 245, 0.5);
+    border: 1px solid rgba(197, 168, 128, 0.15);
+    border-radius: 14px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ss-work-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(197, 168, 128, 0.5), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .ss-work-block:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 252, 245, 0.85);
+    box-shadow: 0 12px 40px rgba(120, 80, 30, 0.08);
+  }
+
+  .ss-work-block:hover::before { opacity: 1; }
+
+  .ss-work-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .ss-work-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: rgba(197, 168, 128, 0.6);
+    font-style: italic;
+  }
+
+  .ss-work-icon {
+    width: 36px;
+    height: 36px;
+    color: #c5a880;
+  }
+
+  .ss-work-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .ss-work-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: #2c1f10;
+    margin: 0 0 12px;
+    line-height: 1.3;
+  }
+
+  .ss-work-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #6b4c2a;
+    margin: 0;
+  }
+</style>
