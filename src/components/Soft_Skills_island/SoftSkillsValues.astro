@@ -1,0 +1,119 @@
+---
+// SoftSkillsValues.astro
+
+const values = [
+  {
+    word: "Integrity",
+    glyph: "I",
+    text: "Honest work over impressive appearance. If something doesn't work, I say so. If I don't know something, I say that too.",
+  },
+  {
+    word: "Discipline",
+    glyph: "D",
+    text: "Motivation comes and goes. Discipline is what remains. Showing up consistently, especially when it's inconvenient.",
+  },
+  {
+    word: "Curiosity",
+    glyph: "C",
+    text: "The one thing that has never needed maintenance. It runs on its own. Every answer opens a better question.",
+  },
+  {
+    word: "Impact",
+    glyph: "I",
+    text: "Building things that matter — even small things. The goal isn't to be busy. The goal is to be useful.",
+  },
+];
+---
+
+<section id="values" class="ss-section ss-section-alt">
+  <div class="ss-container">
+    <div class="ss-section-header ss-reveal">
+      <span class="ss-section-num">04</span>
+      <h2 class="ss-section-title">Values</h2>
+      <p class="ss-section-desc">The constants that don't change regardless of the project, the team, or the deadline.</p>
+    </div>
+
+    <div class="ss-values-grid">
+      {values.map((v, i) => (
+        <div class="ss-value-card ss-reveal" style={`animation-delay:${i * 0.12}s`}>
+          <div class="ss-value-glyph">{v.glyph}</div>
+          <div class="ss-value-body">
+            <h3 class="ss-value-word">{v.word}</h3>
+            <p class="ss-value-text">{v.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ss-values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 640px) {
+    .ss-values-grid { grid-template-columns: 1fr; }
+  }
+
+  .ss-value-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 36px 32px;
+    background: rgba(255, 252, 245, 0.6);
+    border: 1px solid rgba(197, 168, 128, 0.18);
+    border-radius: 16px;
+    transition: all 0.35s ease;
+  }
+
+  .ss-value-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 48px rgba(120, 80, 30, 0.09);
+    border-color: rgba(197, 168, 128, 0.4);
+  }
+
+  .ss-value-glyph {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-style: italic;
+    color: rgba(197, 168, 128, 0.7);
+    background: rgba(197, 168, 128, 0.08);
+    border-radius: 12px;
+    border: 1px solid rgba(197, 168, 128, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .ss-value-card:hover .ss-value-glyph {
+    color: rgba(197, 168, 128, 1);
+    background: rgba(197, 168, 128, 0.15);
+  }
+
+  .ss-value-word {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: #2c1f10;
+    margin: 0 0 10px;
+    line-height: 1.2;
+  }
+
+  .ss-value-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #6b4c2a;
+    margin: 0;
+  }
+</style>

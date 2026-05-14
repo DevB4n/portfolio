@@ -1,0 +1,88 @@
+---
+// SoftSkillsReflections.astro
+
+const reflections = [
+  {
+    text: "Technology is not the end — it's a language. The real question is always what you're trying to say.",
+    theme: "Technology",
+  },
+  {
+    text: "The best systems aren't the most complex. They're the ones you can explain to someone in five minutes — and still trust completely.",
+    theme: "Systems",
+  },
+  {
+    text: "Learning something new always begins with feeling stupid. That discomfort is not a sign you're failing. It's a sign you're growing.",
+    theme: "Growth",
+  },
+  {
+    text: "Depth is underrated. Anyone can know a little about many things. The rare skill is knowing one thing completely enough to see everything else through it.",
+    theme: "Depth",
+  },
+];
+---
+
+<section id="reflections" class="ss-section">
+  <div class="ss-container">
+    <div class="ss-section-header ss-reveal">
+      <span class="ss-section-num">05</span>
+      <h2 class="ss-section-title">Reflections</h2>
+      <p class="ss-section-desc">Ideas that return. Thoughts that have settled long enough to feel true.</p>
+    </div>
+
+    <div class="ss-reflections">
+      {reflections.map((r, i) => (
+        <div class="ss-reflection-item ss-reveal" style={`animation-delay:${i * 0.15}s`}>
+          <div class="ss-reflection-theme">{r.theme}</div>
+          <blockquote class="ss-reflection-quote">
+            {r.text}
+          </blockquote>
+          <div class="ss-reflection-divider"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ss-reflections {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .ss-reflection-item {
+    padding: 44px 0;
+  }
+
+  .ss-reflection-theme {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #c5a880;
+    margin-bottom: 20px;
+  }
+
+  .ss-reflection-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 400;
+    line-height: 1.55;
+    color: #3a2510;
+    margin: 0;
+    letter-spacing: 0.005em;
+  }
+
+  .ss-reflection-divider {
+    margin-top: 44px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(197, 168, 128, 0.25), rgba(197, 168, 128, 0.05) 70%, transparent);
+  }
+
+  .ss-reflection-item:last-child .ss-reflection-divider {
+    display: none;
+  }
+</style>
