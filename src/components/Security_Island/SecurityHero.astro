@@ -1,0 +1,485 @@
+---
+---
+
+<section id="overview" class="si-hero">
+  <!-- Background image with atmospheric overlay -->
+  <div class="si-hero-bg">
+    <img
+      src="/Security/Security_island_background.avif"
+      alt="Security Island"
+      class="si-hero-img"
+    />
+    <!-- Layered atmospheric overlays -->
+    <div class="si-hero-overlay-base"></div>
+    <div class="si-hero-overlay-gradient"></div>
+    <div class="si-hero-overlay-vignette"></div>
+    <div class="si-hero-scanlines"></div>
+  </div>
+
+  <!-- Grid pattern -->
+  <div class="si-hero-grid"></div>
+
+  <!-- Content -->
+  <div class="si-hero-content">
+    <!-- Left: Title block -->
+    <div class="si-hero-left">
+      <div class="si-status-badge">
+        <span class="si-status-dot"></span>
+        <span>MONITORING ACTIVE</span>
+      </div>
+
+      <h1 class="si-hero-title">
+        Security<br />
+        <span class="si-hero-title-muted">Island</span>
+      </h1>
+
+      <p class="si-hero-subtitle">
+        Exploring infrastructure, signals<br />and defensive systems.
+      </p>
+
+      <blockquote class="si-hero-quote">
+        <span class="si-quote-mark">"</span>
+        Security is not about breaking systems.<br />
+        It is about understanding them deeply.
+        <span class="si-quote-mark">"</span>
+      </blockquote>
+
+      <div class="si-hero-coords">
+        <span>37.7749° N, 122.4194° W</span>
+        <span class="si-hero-coords-sep">·</span>
+        <span>SECTOR 7 · SECURE</span>
+      </div>
+    </div>
+
+    <!-- Right: Radar visualization -->
+    <div class="si-hero-right">
+      <div class="si-radar-container">
+        <!-- Radar rings -->
+        <div class="si-radar-ring" style="--scale: 1; --delay: 0s;"></div>
+        <div class="si-radar-ring" style="--scale: 0.72; --delay: 0.3s;"></div>
+        <div class="si-radar-ring" style="--scale: 0.48; --delay: 0.6s;"></div>
+        <div class="si-radar-ring" style="--scale: 0.24; --delay: 0.9s;"></div>
+
+        <!-- Radar sweep -->
+        <div class="si-radar-sweep"></div>
+
+        <!-- Center dot -->
+        <div class="si-radar-center"></div>
+
+        <!-- Blips -->
+        <div class="si-radar-blip" style="--x: 28%; --y: 22%; --bdelay: 0s;"></div>
+        <div class="si-radar-blip" style="--x: 68%; --y: 38%; --bdelay: 0.8s;"></div>
+        <div class="si-radar-blip" style="--x: 42%; --y: 72%; --bdelay: 1.6s;"></div>
+        <div class="si-radar-blip" style="--x: 78%; --y: 64%; --bdelay: 0.4s;"></div>
+        <div class="si-radar-blip" style="--x: 18%; --y: 58%; --bdelay: 1.2s;"></div>
+
+        <!-- Cross lines -->
+        <div class="si-radar-cross-h"></div>
+        <div class="si-radar-cross-v"></div>
+
+        <!-- Labels -->
+        <div class="si-radar-label" style="top: 8px; left: 50%; transform: translateX(-50%);">N</div>
+        <div class="si-radar-label" style="bottom: 8px; left: 50%; transform: translateX(-50%);">S</div>
+        <div class="si-radar-label" style="left: 8px; top: 50%; transform: translateY(-50%);">W</div>
+        <div class="si-radar-label" style="right: 8px; top: 50%; transform: translateY(-50%);">E</div>
+      </div>
+
+      <!-- Telemetry card -->
+      <div class="si-telemetry">
+        <div class="si-telemetry-row">
+          <span class="si-telemetry-key">STATUS</span>
+          <span class="si-telemetry-val si-val-ok">OPERATIONAL</span>
+        </div>
+        <div class="si-telemetry-row">
+          <span class="si-telemetry-key">SIGNALS</span>
+          <span class="si-telemetry-val">24 ACTIVE</span>
+        </div>
+        <div class="si-telemetry-row">
+          <span class="si-telemetry-key">THREATS</span>
+          <span class="si-telemetry-val si-val-warn">2 FLAGGED</span>
+        </div>
+        <div class="si-telemetry-row">
+          <span class="si-telemetry-key">UPTIME</span>
+          <span class="si-telemetry-val">99.8%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="si-scroll-hint">
+    <div class="si-scroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<style>
+  .si-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* Background */
+  .si-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .si-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    filter: saturate(0.4) brightness(0.55);
+  }
+
+  .si-hero-overlay-base {
+    position: absolute;
+    inset: 0;
+    background: rgba(7, 11, 20, 0.55);
+  }
+
+  .si-hero-overlay-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(7, 11, 20, 0.85) 0%,
+      rgba(7, 11, 20, 0.3) 50%,
+      rgba(7, 11, 20, 0.7) 100%
+    );
+  }
+
+  .si-hero-overlay-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(7, 11, 20, 0.9) 100%);
+  }
+
+  .si-hero-scanlines {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.08) 3px,
+      rgba(0, 0, 0, 0.08) 4px
+    );
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  /* Grid */
+  .si-hero-grid {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image:
+      linear-gradient(rgba(71, 193, 226, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(71, 193, 226, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* Content layout */
+  .si-hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 48px 80px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  @media (max-width: 900px) {
+    .si-hero-content {
+      grid-template-columns: 1fr;
+      padding: 120px 24px 80px;
+      gap: 48px;
+    }
+  }
+
+  /* Status badge */
+  .si-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 12px;
+    border: 1px solid rgba(71, 193, 226, 0.2);
+    border-radius: 3px;
+    background: rgba(71, 193, 226, 0.05);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: rgba(71, 193, 226, 0.7);
+    margin-bottom: 28px;
+    text-transform: uppercase;
+  }
+
+  .si-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(71, 193, 226, 0.8);
+    box-shadow: 0 0 8px rgba(71, 193, 226, 0.6);
+    animation: si-pulse 2s infinite;
+  }
+
+  /* Title */
+  .si-hero-title {
+    font-family: 'Syne', 'Playfair Display', sans-serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: rgba(235, 242, 250, 0.95);
+    margin-bottom: 24px;
+  }
+
+  .si-hero-title-muted {
+    color: rgba(71, 193, 226, 0.65);
+  }
+
+  /* Subtitle */
+  .si-hero-subtitle {
+    font-family: 'DM Sans', 'Inter', sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: rgba(180, 200, 220, 0.7);
+    margin-bottom: 32px;
+    letter-spacing: 0.01em;
+  }
+
+  /* Quote */
+  .si-hero-quote {
+    padding: 16px 20px;
+    border-left: 2px solid rgba(71, 193, 226, 0.25);
+    background: rgba(71, 193, 226, 0.04);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(180, 200, 220, 0.65);
+    font-style: italic;
+    letter-spacing: 0.01em;
+    margin-bottom: 32px;
+  }
+
+  .si-quote-mark {
+    font-size: 20px;
+    color: rgba(71, 193, 226, 0.3);
+    font-style: normal;
+  }
+
+  /* Coordinates */
+  .si-hero-coords {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: rgba(180, 200, 220, 0.35);
+    text-transform: uppercase;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .si-hero-coords-sep {
+    opacity: 0.4;
+  }
+
+  /* Radar */
+  .si-hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .si-radar-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    flex-shrink: 0;
+  }
+
+  .si-radar-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(100% * var(--scale));
+    height: calc(100% * var(--scale));
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(71, 193, 226, 0.18);
+    border-radius: 50%;
+    animation: si-ring-pulse 3s ease-in-out var(--delay) infinite;
+  }
+
+  .si-radar-sweep {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    transform-origin: 0% 100%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 340deg,
+      rgba(71, 193, 226, 0.12) 355deg,
+      rgba(71, 193, 226, 0.4) 360deg
+    );
+    animation: si-sweep 4s linear infinite;
+    border-radius: 0 100% 0 0;
+  }
+
+  .si-radar-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: rgba(71, 193, 226, 0.9);
+    box-shadow: 0 0 12px rgba(71, 193, 226, 0.8);
+  }
+
+  .si-radar-cross-h,
+  .si-radar-cross-v {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(71, 193, 226, 0.1);
+  }
+
+  .si-radar-cross-h {
+    width: 100%;
+    height: 1px;
+  }
+
+  .si-radar-cross-v {
+    width: 1px;
+    height: 100%;
+  }
+
+  .si-radar-blip {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: 5px;
+    height: 5px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: rgba(71, 193, 226, 0.9);
+    box-shadow: 0 0 8px rgba(71, 193, 226, 0.7);
+    animation: si-blip 4s ease-in-out var(--bdelay) infinite;
+  }
+
+  .si-radar-label {
+    position: absolute;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: rgba(71, 193, 226, 0.35);
+    letter-spacing: 0.1em;
+  }
+
+  /* Telemetry */
+  .si-telemetry {
+    width: 100%;
+    max-width: 300px;
+    background: rgba(7, 11, 20, 0.6);
+    border: 1px solid rgba(71, 193, 226, 0.12);
+    border-radius: 4px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    backdrop-filter: blur(8px);
+  }
+
+  .si-telemetry-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .si-telemetry-key {
+    color: rgba(180, 200, 220, 0.4);
+  }
+
+  .si-telemetry-val {
+    color: rgba(180, 200, 220, 0.75);
+  }
+
+  .si-val-ok {
+    color: rgba(100, 210, 140, 0.8);
+  }
+
+  .si-val-warn {
+    color: rgba(230, 180, 80, 0.8);
+  }
+
+  /* Scroll hint */
+  .si-scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: rgba(180, 200, 220, 0.3);
+    text-transform: uppercase;
+  }
+
+  .si-scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(71, 193, 226, 0.4), transparent);
+    animation: si-scroll-drop 2s ease-in-out infinite;
+  }
+
+  /* Animations */
+  @keyframes si-pulse {
+    0%, 100% { opacity: 0.8; box-shadow: 0 0 8px rgba(71, 193, 226, 0.6); }
+    50% { opacity: 0.4; box-shadow: 0 0 16px rgba(71, 193, 226, 0.3); }
+  }
+
+  @keyframes si-ring-pulse {
+    0%, 100% { opacity: 0.18; }
+    50% { opacity: 0.08; }
+  }
+
+  @keyframes si-sweep {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes si-blip {
+    0%, 40%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+    50%, 70% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  }
+
+  @keyframes si-scroll-drop {
+    0%, 100% { transform: scaleY(0.6) translateY(-8px); opacity: 0.3; }
+    50% { transform: scaleY(1) translateY(0); opacity: 0.6; }
+  }
+</style>

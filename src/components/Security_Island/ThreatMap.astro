@@ -1,0 +1,260 @@
+---
+---
+
+<section id="infrastructure" class="si-section si-map-section">
+  <div class="si-container">
+    <div class="si-section-header si-reveal">
+      <span class="si-section-num">04 / 10</span>
+      <h2 class="si-section-title">Threat Surface Map</h2>
+      <p class="si-section-desc">Abstract infrastructure topology — nodes, protocols and exposure analysis.</p>
+    </div>
+
+    <div class="si-map-layout si-reveal">
+      <canvas id="si-topology-canvas" class="si-topology-canvas"></canvas>
+      <div id="si-node-tooltip" class="si-node-tooltip" style="display:none;"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .si-map-section {
+    background: #070b14;
+    border-top: 1px solid rgba(71, 193, 226, 0.06);
+  }
+
+  .si-map-layout {
+    position: relative;
+    width: 100%;
+  }
+
+  .si-topology-canvas {
+    width: 100%;
+    height: 480px;
+    border: 1px solid rgba(71, 193, 226, 0.1);
+    border-radius: 6px;
+    background: rgba(7, 11, 20, 0.8);
+    cursor: crosshair;
+    display: block;
+  }
+
+  .si-node-tooltip {
+    position: absolute;
+    background: rgba(7, 11, 20, 0.95);
+    border: 1px solid rgba(71, 193, 226, 0.2);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    pointer-events: none;
+    min-width: 180px;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  }
+
+  .si-tooltip-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(71, 193, 226, 0.9);
+    margin-bottom: 6px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .si-tooltip-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 3px;
+  }
+
+  .si-tooltip-k { color: rgba(180, 200, 220, 0.4); }
+  .si-tooltip-v { color: rgba(180, 200, 220, 0.75); }
+</style>
+
+<script>
+  const canvas = document.getElementById('si-topology-canvas') as HTMLCanvasElement;
+  const tooltip = document.getElementById('si-node-tooltip') as HTMLElement;
+  if (!canvas || !tooltip) throw new Error('missing');
+
+  const DPR = window.devicePixelRatio || 1;
+
+  const resize = () => {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * DPR;
+    canvas.height = rect.height * DPR;
+  };
+  resize();
+  window.addEventListener('resize', () => { resize(); });
+
+  interface Node {
+    id: string; x: number; y: number; r: number;
+    label: string; color: string;
+    protocol: string; port: string; notes: string;
+    pulse: number;
+  }
+
+  const NODES: Node[] = [
+    { id: 'cdn', x: 0.5, y: 0.12, r: 18, label: 'CDN', color: 'rgba(71,193,226,0.8)',
+      protocol: 'HTTPS/HTTP2', port: '443, 80', notes: 'Edge caching · Cloudflare', pulse: 0 },
+    { id: 'api', x: 0.3, y: 0.4, r: 16, label: 'API', color: 'rgba(100,210,140,0.8)',
+      protocol: 'REST/gRPC', port: '8080', notes: 'Rate limited · JWT auth', pulse: 0 },
+    { id: 'auth', x: 0.7, y: 0.4, r: 16, label: 'Auth', color: 'rgba(140,100,220,0.8)',
+      protocol: 'OAuth2 / OIDC', port: '443', notes: 'Token validation · RBAC', pulse: 0 },
+    { id: 'cache', x: 0.18, y: 0.68, r: 14, label: 'Cache', color: 'rgba(71,193,226,0.6)',
+      protocol: 'Redis / TCP', port: '6379', notes: 'Internal only · no public exposure', pulse: 0 },
+    { id: 'db', x: 0.5, y: 0.82, r: 18, label: 'Database', color: 'rgba(180,160,100,0.8)',
+      protocol: 'PostgreSQL', port: '5432', notes: 'Encrypted at rest · VPC isolated', pulse: 0 },
+    { id: 'ext', x: 0.82, y: 0.68, r: 14, label: 'External', color: 'rgba(220,100,90,0.7)',
+      protocol: 'Webhooks / HTTPS', port: '443', notes: 'Third-party APIs · egress only', pulse: 0 },
+  ];
+
+  const EDGES = [
+    ['cdn', 'api'], ['cdn', 'auth'], ['api', 'auth'], ['api', 'cache'],
+    ['api', 'db'], ['auth', 'db'], ['api', 'ext'],
+  ];
+
+  let hoveredNode: Node | null = null;
+  let animFrame: number;
+  let t = 0;
+  let particles: { from: Node; to: Node; p: number; speed: number; color: string }[] = [];
+
+  // Spawn particles along edges
+  EDGES.forEach(([a, b]) => {
+    const from = NODES.find(n => n.id === a)!;
+    const to = NODES.find(n => n.id === b)!;
+    for (let i = 0; i < 2; i++) {
+      particles.push({ from, to, p: Math.random(), speed: 0.003 + Math.random() * 0.003, color: from.color });
+    }
+  });
+
+  const draw = () => {
+    const W = canvas.width;
+    const H = canvas.height;
+    const ctx = canvas.getContext('2d')!;
+    ctx.clearRect(0, 0, W, H);
+    ctx.scale(DPR, DPR);
+    const VW = W / DPR;
+    const VH = H / DPR;
+    ctx.scale(1 / DPR, 1 / DPR);
+
+    t += 0.01;
+
+    // Grid
+    ctx.strokeStyle = 'rgba(71,193,226,0.04)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x < VW; x += 48) {
+      ctx.beginPath(); ctx.moveTo(x * DPR, 0); ctx.lineTo(x * DPR, H); ctx.stroke();
+    }
+    for (let y = 0; y < VH; y += 48) {
+      ctx.beginPath(); ctx.moveTo(0, y * DPR); ctx.lineTo(W, y * DPR); ctx.stroke();
+    }
+
+    // Edges
+    EDGES.forEach(([a, b]) => {
+      const from = NODES.find(n => n.id === a)!;
+      const to = NODES.find(n => n.id === b)!;
+      const isHot = hoveredNode && (hoveredNode.id === a || hoveredNode.id === b);
+
+      ctx.beginPath();
+      ctx.moveTo(from.x * VW * DPR, from.y * VH * DPR);
+      ctx.lineTo(to.x * VW * DPR, to.y * VH * DPR);
+      ctx.strokeStyle = isHot ? 'rgba(71,193,226,0.35)' : 'rgba(71,193,226,0.1)';
+      ctx.lineWidth = isHot ? 1.5 : 1;
+      ctx.setLineDash([4, 8]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    });
+
+    // Particles
+    particles.forEach(par => {
+      par.p = (par.p + par.speed) % 1;
+      const x = (par.from.x + (par.to.x - par.from.x) * par.p) * VW * DPR;
+      const y = (par.from.y + (par.to.y - par.from.y) * par.p) * VH * DPR;
+      ctx.beginPath();
+      ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = par.color.replace('0.8', '0.6').replace('0.7', '0.6').replace('0.6', '0.5');
+      ctx.fill();
+    });
+
+    // Nodes
+    NODES.forEach(node => {
+      node.pulse = (node.pulse + 0.025) % (Math.PI * 2);
+      const nx = node.x * VW * DPR;
+      const ny = node.y * VH * DPR;
+      const isHovered = hoveredNode?.id === node.id;
+      const r = node.r * DPR;
+      const pulseR = r + (isHovered ? 10 : 5) * DPR * (0.5 + 0.5 * Math.sin(node.pulse));
+
+      // Pulse ring
+      ctx.beginPath();
+      ctx.arc(nx, ny, pulseR, 0, Math.PI * 2);
+      ctx.strokeStyle = node.color.replace('0.8', isHovered ? '0.25' : '0.12').replace('0.7', isHovered ? '0.2' : '0.1').replace('0.6', isHovered ? '0.15' : '0.08');
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Node circle
+      ctx.beginPath();
+      ctx.arc(nx, ny, r, 0, Math.PI * 2);
+      const grad = ctx.createRadialGradient(nx - r * 0.3, ny - r * 0.3, 0, nx, ny, r);
+      grad.addColorStop(0, node.color.replace('0.8', isHovered ? '0.9' : '0.7'));
+      grad.addColorStop(1, node.color.replace('0.8', isHovered ? '0.4' : '0.2'));
+      ctx.fillStyle = grad;
+      ctx.fill();
+      ctx.strokeStyle = node.color.replace('0.8', '0.5');
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Label
+      ctx.fillStyle = 'rgba(200,220,240,0.85)';
+      ctx.font = `${600}  ${11 * DPR}px "IBM Plex Mono", monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(node.label, nx, ny);
+    });
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    animFrame = requestAnimationFrame(draw);
+  };
+
+  draw();
+
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = (e.clientX - rect.left);
+    const my = (e.clientY - rect.top);
+    const VW = rect.width;
+    const VH = rect.height;
+
+    const found = NODES.find(n => {
+      const dx = n.x * VW - mx;
+      const dy = n.y * VH - my;
+      return Math.sqrt(dx * dx + dy * dy) < n.r + 8;
+    }) || null;
+
+    hoveredNode = found;
+
+    if (found) {
+      tooltip.style.display = 'block';
+      const tx = Math.min(mx + 16, VW - 200);
+      const ty = Math.max(my - 80, 8);
+      tooltip.style.left = tx + 'px';
+      tooltip.style.top = ty + 'px';
+      tooltip.innerHTML = `
+        <div class="si-tooltip-name">${found.label}</div>
+        <div class="si-tooltip-row"><span class="si-tooltip-k">Protocol</span><span class="si-tooltip-v">${found.protocol}</span></div>
+        <div class="si-tooltip-row"><span class="si-tooltip-k">Port(s)</span><span class="si-tooltip-v">${found.port}</span></div>
+        <div class="si-tooltip-row"><span class="si-tooltip-k">Notes</span><span class="si-tooltip-v">${found.notes}</span></div>
+      `;
+      canvas.style.cursor = 'pointer';
+    } else {
+      tooltip.style.display = 'none';
+      canvas.style.cursor = 'crosshair';
+    }
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+    hoveredNode = null;
+  });
+</script>

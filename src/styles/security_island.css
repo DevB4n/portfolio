@@ -1,0 +1,113 @@
+/* =========================================
+   SECURITY ISLAND — Global Styles
+   ========================================= */
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: #070b14;
+  color: rgba(180, 200, 220, 0.7);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #070b14; }
+::-webkit-scrollbar-thumb { background: rgba(71, 193, 226, 0.2); border-radius: 3px; }
+
+/* Selection */
+::selection {
+  background: rgba(71, 193, 226, 0.15);
+  color: rgba(200, 220, 240, 0.9);
+}
+
+/* Section base */
+.si-section {
+  padding: 96px 0;
+}
+
+/* Container */
+.si-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+@media (max-width: 768px) {
+  .si-section { padding: 72px 0; }
+  .si-container { padding: 0 24px; }
+}
+
+/* Section headers */
+.si-section-header {
+  margin-bottom: 56px;
+}
+
+.si-section-num {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(71, 193, 226, 0.3);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.si-section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  color: rgba(200, 220, 240, 0.88);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.si-section-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(180, 200, 220, 0.45);
+  line-height: 1.65;
+  max-width: 520px;
+}
+
+/* Reveal animation */
+.si-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.si-reveal.si-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Global animations */
+@keyframes si-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes si-node-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes si-log-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
