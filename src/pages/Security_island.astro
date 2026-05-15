@@ -1,0 +1,99 @@
+---
+import '../styles/security_island.css';
+import FirewallAnimation from '../components/Security_Island/FirewallAnimation';
+import SecurityNav from '../components/Security_Island/SecurityNav';
+import SecurityHero from '../components/Security_Island/SecurityHero.astro';
+import ThreatFeed from '../components/Security_Island/ThreatFeed.astro';
+import InfrastructureLayers from '../components/Security_Island/InfrastructureLayers.astro';
+import SiemCenter from '../components/Security_Island/SiemCenter.astro';
+import ThreatMap from '../components/Security_Island/ThreatMap.astro';
+import ResearchLogs from '../components/Security_Island/ResearchLogs.astro';
+import SecurityTerminal from '../components/Security_Island/SecurityTerminal.astro';
+import SecurityTools from '../components/Security_Island/SecurityTools.astro';
+import RecentFindings from '../components/Security_Island/RecentFindings.astro';
+import SecurityPhilosophy from '../components/Security_Island/SecurityPhilosophy.astro';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Security Island | Observatory</title>
+    <meta name="description" content="A cyber intelligence observatory — exploring infrastructure, signals and defensive systems." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <FirewallAnimation client:load />
+    <SecurityNav client:load />
+    <main>
+      <SecurityHero />
+      <section id="siem" style="padding-top:0;">
+        <ThreatFeed />
+      </section>
+      <InfrastructureLayers />
+      <SiemCenter />
+      <ThreatMap />
+      <ResearchLogs />
+      <SecurityTerminal />
+      <SecurityTools />
+      <RecentFindings />
+      <SecurityPhilosophy />
+      <footer class="si-footer">
+        <div class="si-footer-inner">
+          <div class="si-footer-left">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L4 6V12C4 16.4 7.4 20.5 12 22C16.6 20.5 20 16.4 20 12V6L12 2Z" stroke="rgba(71,193,226,0.5)" stroke-width="1.5"/>
+              <circle cx="12" cy="12" r="2.5" fill="rgba(71,193,226,0.4)"/>
+            </svg>
+            <span>Security Island</span>
+          </div>
+          <div class="si-footer-center">Observational · Analytical · Defensive</div>
+          <div class="si-footer-right"><a href="/">← Return to Map</a></div>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  .si-footer {
+    border-top: 1px solid rgba(71,193,226,0.08);
+    padding: 24px 48px;
+    background: #070b14;
+  }
+  .si-footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .si-footer-left { display: flex; align-items: center; gap: 8px; color: rgba(71,193,226,0.5); }
+  .si-footer-center { color: rgba(180,200,220,0.25); }
+  .si-footer-right a { color: rgba(180,200,220,0.35); text-decoration: none; transition: color 0.2s; }
+  .si-footer-right a:hover { color: rgba(71,193,226,0.7); }
+  @media (max-width: 640px) {
+    .si-footer { padding: 20px 24px; }
+    .si-footer-center { display: none; }
+  }
+</style>
+
+<script>
+  const reveals = document.querySelectorAll('.si-reveal');
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('si-visible'); }),
+    { rootMargin: '0px 0px -60px 0px', threshold: 0.06 }
+  );
+  reveals.forEach((el) => observer.observe(el));
+</script>

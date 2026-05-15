@@ -1,0 +1,423 @@
+---
+---
+
+<section id="research" class="si-section si-research-section">
+  <div class="si-container">
+    <div class="si-section-header si-reveal">
+      <span class="si-section-num">05 / 10</span>
+      <h2 class="si-section-title">Research Logs</h2>
+      <p class="si-section-desc">Classified infrastructure observations. Click a file to expand.</p>
+    </div>
+
+    <div class="si-research-layout si-reveal">
+      <!-- File browser -->
+      <div class="si-file-browser">
+        <div class="si-browser-header">
+          <span class="si-browser-path">~/research/security/</span>
+          <span class="si-browser-count">6 files</span>
+        </div>
+
+        <div class="si-file-list" id="si-file-list">
+
+          <div class="si-file-item active" data-file="headers">
+            <div class="si-file-row">
+              <span class="si-file-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="1.5"/>
+                  <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              </span>
+              <span class="si-file-name">headers_analysis.log</span>
+              <span class="si-file-size">4.2 KB</span>
+              <span class="si-file-severity si-sev-medium">MEDIUM</span>
+            </div>
+          </div>
+
+          <div class="si-file-item" data-file="dns">
+            <div class="si-file-row">
+              <span class="si-file-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="1.5"/>
+                  <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              </span>
+              <span class="si-file-name">dns_notes.md</span>
+              <span class="si-file-size">1.8 KB</span>
+              <span class="si-file-severity si-sev-low">LOW</span>
+            </div>
+          </div>
+
+          <div class="si-file-item" data-file="surface">
+            <div class="si-file-row">
+              <span class="si-file-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="1.5"/>
+                  <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              </span>
+              <span class="si-file-name">surface_map.json</span>
+              <span class="si-file-size">9.1 KB</span>
+              <span class="si-file-severity si-sev-info">INFO</span>
+            </div>
+          </div>
+
+          <div class="si-file-item" data-file="auth">
+            <div class="si-file-row">
+              <span class="si-file-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="1.5"/>
+                  <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              </span>
+              <span class="si-file-name">auth_flow.txt</span>
+              <span class="si-file-size">2.3 KB</span>
+              <span class="si-file-severity si-sev-info">INFO</span>
+            </div>
+          </div>
+
+          <div class="si-file-item" data-file="tls">
+            <div class="si-file-row">
+              <span class="si-file-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="1.5"/>
+                  <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              </span>
+              <span class="si-file-name">tls_observations.log</span>
+              <span class="si-file-size">3.7 KB</span>
+              <span class="si-file-severity si-sev-low">LOW</span>
+            </div>
+          </div>
+
+          <div class="si-file-item" data-file="rate">
+            <div class="si-file-row">
+              <span class="si-file-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="1.5"/>
+                  <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              </span>
+              <span class="si-file-name">rate_limiting.md</span>
+              <span class="si-file-size">1.2 KB</span>
+              <span class="si-file-severity si-sev-medium">MEDIUM</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Content panel -->
+      <div class="si-content-panel" id="si-content-panel">
+        <div class="si-content-header" id="si-content-title">
+          <span class="si-content-fname">headers_analysis.log</span>
+          <span class="si-content-tag si-sev-medium">MEDIUM</span>
+        </div>
+        <div class="si-content-body" id="si-content-body"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .si-research-section {
+    background: linear-gradient(180deg, #0a0f1e 0%, #070b14 100%);
+    border-top: 1px solid rgba(71, 193, 226, 0.06);
+  }
+
+  .si-research-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 20px;
+    min-height: 420px;
+  }
+
+  @media (max-width: 760px) {
+    .si-research-layout { grid-template-columns: 1fr; }
+  }
+
+  /* File browser */
+  .si-file-browser {
+    background: rgba(7, 11, 20, 0.9);
+    border: 1px solid rgba(71, 193, 226, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .si-browser-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    background: rgba(71, 193, 226, 0.04);
+    border-bottom: 1px solid rgba(71, 193, 226, 0.08);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+
+  .si-browser-path { color: rgba(71, 193, 226, 0.6); }
+  .si-browser-count { color: rgba(180, 200, 220, 0.3); }
+
+  .si-file-list { padding: 8px; display: flex; flex-direction: column; gap: 2px; }
+
+  .si-file-item {
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .si-file-item:hover {
+    background: rgba(71, 193, 226, 0.05);
+    border-color: rgba(71, 193, 226, 0.1);
+  }
+
+  .si-file-item.active {
+    background: rgba(71, 193, 226, 0.08);
+    border-color: rgba(71, 193, 226, 0.18);
+  }
+
+  .si-file-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+  }
+
+  .si-file-icon { color: rgba(71, 193, 226, 0.4); flex-shrink: 0; }
+  .si-file-name { flex: 1; color: rgba(200, 220, 240, 0.7); }
+  .si-file-size { color: rgba(180, 200, 220, 0.3); }
+
+  .si-file-severity {
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    padding: 2px 6px;
+    border-radius: 2px;
+    border: 1px solid;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .si-sev-medium { color: rgba(230, 180, 80, 0.8); border-color: rgba(230, 180, 80, 0.2); background: rgba(230, 180, 80, 0.05); }
+  .si-sev-low { color: rgba(100, 210, 140, 0.7); border-color: rgba(100, 210, 140, 0.2); background: rgba(100, 210, 140, 0.04); }
+  .si-sev-info { color: rgba(71, 193, 226, 0.7); border-color: rgba(71, 193, 226, 0.2); background: rgba(71, 193, 226, 0.04); }
+
+  /* Content panel */
+  .si-content-panel {
+    background: rgba(7, 11, 20, 0.9);
+    border: 1px solid rgba(71, 193, 226, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .si-content-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    background: rgba(71, 193, 226, 0.04);
+    border-bottom: 1px solid rgba(71, 193, 226, 0.08);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+  }
+
+  .si-content-fname { color: rgba(200, 220, 240, 0.7); flex: 1; }
+  .si-content-tag { font-size: 8px; letter-spacing: 0.12em; padding: 2px 8px; border-radius: 2px; border: 1px solid; text-transform: uppercase; }
+
+  .si-content-body {
+    padding: 20px;
+    flex: 1;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    line-height: 1.8;
+    color: rgba(180, 200, 220, 0.6);
+    overflow-y: auto;
+  }
+
+  .si-content-entry {
+    display: flex;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(71, 193, 226, 0.04);
+  }
+
+  .si-entry-lnum { color: rgba(71, 193, 226, 0.2); user-select: none; min-width: 24px; }
+  .si-entry-txt { flex: 1; }
+
+  .si-entry-key { color: rgba(71, 193, 226, 0.7); }
+  .si-entry-val { color: rgba(200, 220, 240, 0.55); }
+  .si-entry-comment { color: rgba(180, 200, 220, 0.3); font-style: italic; }
+  .si-entry-warn { color: rgba(230, 180, 80, 0.7); }
+  .si-entry-ok { color: rgba(100, 210, 140, 0.6); }
+</style>
+
+<script>
+  const FILES: Record<string, { title: string; severity: string; lines: string[] }> = {
+    headers: {
+      title: 'headers_analysis.log',
+      severity: 'MEDIUM',
+      lines: [
+        '# HTTP Security Headers Analysis',
+        '# Observed: 2024-01-15 · Target: api.internal',
+        '',
+        'WARN  X-Frame-Options: MISSING — clickjacking risk',
+        'WARN  Content-Security-Policy: MISSING — XSS exposure',
+        'OK    Strict-Transport-Security: max-age=31536000; includeSubDomains',
+        'OK    X-Content-Type-Options: nosniff',
+        'INFO  X-XSS-Protection: 1; mode=block (deprecated, but present)',
+        'WARN  Referrer-Policy: no-referrer-when-downgrade (consider strict-origin)',
+        'OK    Permissions-Policy: geolocation=(), camera=()',
+        '',
+        '# Summary: 2 missing critical headers.',
+        '# Recommendation: Add CSP and X-Frame-Options to reverse proxy config.',
+      ],
+    },
+    dns: {
+      title: 'dns_notes.md',
+      severity: 'LOW',
+      lines: [
+        '# DNS Observations',
+        '',
+        '- Internal resolution: Consul DNS on :8600',
+        '- Public resolvers blocked via VPC firewall',
+        '- DNSSEC not enforced on internal zones',
+        '- Wildcard CNAME observed on staging subdomain',
+        '',
+        '# Potential concern:',
+        '  Subdomain enumeration feasible via zone transfer.',
+        '  Recommend: AXFR disabled on authoritative resolver.',
+        '',
+        '# TTLs:',
+        '  api.internal    → 30s  (good for failover)',
+        '  cdn.public.io   → 300s (acceptable)',
+        '  db.internal     → 600s (increase to reduce exposure)',
+      ],
+    },
+    surface: {
+      title: 'surface_map.json',
+      severity: 'INFO',
+      lines: [
+        '{',
+        '  "observed": "2024-01-15",',
+        '  "perimeter_nodes": ["cdn", "api-gw", "waf"],',
+        '  "internal_nodes": ["auth", "cache", "db"],',
+        '  "external_deps": ["payment-api", "email-srv"],',
+        '  "open_ports": {',
+        '    "external": [443, 80],',
+        '    "internal": [8080, 6379, 5432]',
+        '  },',
+        '  "tls_versions": ["TLSv1.3", "TLSv1.2"],',
+        '  "cipher_suites": "ECDHE-RSA-AES256-GCM-SHA384",',
+        '  "attack_surface_score": 3.2',
+        '}',
+      ],
+    },
+    auth: {
+      title: 'auth_flow.txt',
+      severity: 'INFO',
+      lines: [
+        '# Authentication Flow',
+        '',
+        'Client → POST /auth/login',
+        '  → Validates credentials (bcrypt)',
+        '  → Issues JWT (RS256, exp: 1h)',
+        '  → Issues refresh token (opaque, exp: 7d)',
+        '',
+        'Client → Bearer <access_token>',
+        '  → Middleware: verify signature + expiry',
+        '  → Extract claims: user_id, roles',
+        '  → RBAC: check permission matrix',
+        '',
+        '# Observations:',
+        '  Refresh token not rotated on use — recommend rotation.',
+        '  No device fingerprinting on session creation.',
+        '  CSRF protection: double-submit cookie pattern (OK).',
+      ],
+    },
+    tls: {
+      title: 'tls_observations.log',
+      severity: 'LOW',
+      lines: [
+        '# TLS Configuration Audit',
+        '# Target: api.internal (edge termination)',
+        '',
+        'OK    Protocol: TLSv1.3 supported',
+        'OK    Protocol: TLSv1.2 fallback (acceptable)',
+        'OK    TLSv1.0 disabled',
+        'OK    TLSv1.1 disabled',
+        '',
+        'OK    HSTS: enabled (max-age=31536000)',
+        'INFO  HSTS preload: not submitted to browser list',
+        '',
+        'OK    Certificate: RSA 4096 / SHA-256',
+        'OK    Certificate validity: 87 days remaining',
+        'INFO  Auto-renewal: configured via certbot --deploy-hook',
+        '',
+        '# OCSP stapling: enabled — reduces handshake round trips.',
+      ],
+    },
+    rate: {
+      title: 'rate_limiting.md',
+      severity: 'MEDIUM',
+      lines: [
+        '# Rate Limiting Analysis',
+        '',
+        '## Current State',
+        '- WAF: 100 req/min per IP (global)',
+        '- Auth endpoint: 10 attempts/min per user',
+        '- API: no endpoint-level limits observed',
+        '',
+        '## Issues Found',
+        '- GET /api/v1/users: no rate limit',
+        '- POST /api/v1/comments: no rate limit',
+        '- Burst behavior: not throttled (only avg enforced)',
+        '',
+        '## Recommendations',
+        '  Add per-route rate limiting in reverse proxy.',
+        '  Implement exponential backoff on auth failures.',
+        '  Consider token bucket vs fixed window algorithm.',
+      ],
+    },
+  };
+
+  function renderContent(key: string) {
+    const file = FILES[key];
+    if (!file) return;
+
+    const titleEl = document.getElementById('si-content-title')!;
+    const bodyEl = document.getElementById('si-content-body')!;
+
+    titleEl.innerHTML = `
+      <span class="si-content-fname">${file.title}</span>
+      <span class="si-content-tag si-sev-${file.severity.toLowerCase()}">${file.severity}</span>
+    `;
+
+    bodyEl.innerHTML = file.lines.map((line, i) => {
+      let cls = 'si-entry-txt';
+      if (line.startsWith('#')) cls += ' si-entry-comment';
+      else if (line.startsWith('OK')) cls += ' si-entry-ok';
+      else if (line.startsWith('WARN')) cls += ' si-entry-warn';
+      else if (line.startsWith('INFO')) cls += ' si-entry-key';
+
+      return `<div class="si-content-entry">
+        <span class="si-entry-lnum">${String(i + 1).padStart(2, '0')}</span>
+        <span class="${cls}">${line || '&nbsp;'}</span>
+      </div>`;
+    }).join('');
+  }
+
+  const items = document.querySelectorAll('.si-file-item');
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      items.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+      renderContent((item as HTMLElement).dataset.file || '');
+    });
+  });
+
+  renderContent('headers');
+</script>

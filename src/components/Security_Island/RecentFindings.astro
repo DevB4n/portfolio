@@ -1,0 +1,486 @@
+---
+---
+
+<section class="si-section si-findings-section">
+  <div class="si-container">
+    <div class="si-section-header si-reveal">
+      <span class="si-section-num">08 / 10</span>
+      <h2 class="si-section-title">Recent Findings</h2>
+      <p class="si-section-desc">Documented observations from infrastructure analysis and security review.</p>
+    </div>
+
+    <div class="si-findings-layout si-reveal">
+
+      <div class="si-finding si-finding-medium">
+        <div class="si-finding-header">
+          <div class="si-finding-left">
+            <span class="si-finding-num">#001</span>
+            <div class="si-finding-severity si-sev-m">
+              <span class="si-sev-dot"></span>
+              MEDIUM
+            </div>
+          </div>
+          <div class="si-finding-meta">
+            <span class="si-finding-date">2024-01-15</span>
+            <span class="si-finding-status si-fstatus-open">OPEN</span>
+          </div>
+        </div>
+        <h3 class="si-finding-title">Missing CSP Headers</h3>
+        <p class="si-finding-desc">
+          Content-Security-Policy and X-Frame-Options headers absent from all API responses. 
+          Increases exposure to cross-site scripting and clickjacking attacks. Remediation 
+          at reverse proxy level requires two configuration lines.
+        </p>
+        <div class="si-finding-tags">
+          <span class="si-ftag">XSS</span>
+          <span class="si-ftag">Headers</span>
+          <span class="si-ftag">OWASP A05</span>
+        </div>
+        <div class="si-finding-impact">
+          <span class="si-impact-label">Impact</span>
+          <div class="si-impact-bar">
+            <div class="si-impact-fill" style="width: 55%; background: rgba(230,180,80,0.6);"></div>
+          </div>
+          <span class="si-impact-val">5.5 / 10</span>
+        </div>
+      </div>
+
+      <div class="si-finding si-finding-medium">
+        <div class="si-finding-header">
+          <div class="si-finding-left">
+            <span class="si-finding-num">#002</span>
+            <div class="si-finding-severity si-sev-m">
+              <span class="si-sev-dot"></span>
+              MEDIUM
+            </div>
+          </div>
+          <div class="si-finding-meta">
+            <span class="si-finding-date">2024-01-14</span>
+            <span class="si-finding-status si-fstatus-open">OPEN</span>
+          </div>
+        </div>
+        <h3 class="si-finding-title">Rate Limiting Absent on API Routes</h3>
+        <p class="si-finding-desc">
+          Global WAF rate limiting active but no per-endpoint limits configured. 
+          Resource-intensive endpoints such as /api/v1/users and /api/v1/search 
+          accept unlimited requests per authenticated session.
+        </p>
+        <div class="si-finding-tags">
+          <span class="si-ftag">DoS</span>
+          <span class="si-ftag">Rate Limit</span>
+          <span class="si-ftag">API</span>
+        </div>
+        <div class="si-finding-impact">
+          <span class="si-impact-label">Impact</span>
+          <div class="si-impact-bar">
+            <div class="si-impact-fill" style="width: 48%; background: rgba(230,180,80,0.6);"></div>
+          </div>
+          <span class="si-impact-val">4.8 / 10</span>
+        </div>
+      </div>
+
+      <div class="si-finding si-finding-low">
+        <div class="si-finding-header">
+          <div class="si-finding-left">
+            <span class="si-finding-num">#003</span>
+            <div class="si-finding-severity si-sev-l">
+              <span class="si-sev-dot"></span>
+              LOW
+            </div>
+          </div>
+          <div class="si-finding-meta">
+            <span class="si-finding-date">2024-01-13</span>
+            <span class="si-finding-status si-fstatus-review">IN REVIEW</span>
+          </div>
+        </div>
+        <h3 class="si-finding-title">Server Version Exposed</h3>
+        <p class="si-finding-desc">
+          nginx/1.24.0 version string present in Server response header. 
+          Facilitates targeted exploit research against known nginx CVEs. 
+          Resolved by setting <code class="si-inline-code">server_tokens off</code> in nginx configuration.
+        </p>
+        <div class="si-finding-tags">
+          <span class="si-ftag">Information Disclosure</span>
+          <span class="si-ftag">nginx</span>
+        </div>
+        <div class="si-finding-impact">
+          <span class="si-impact-label">Impact</span>
+          <div class="si-impact-bar">
+            <div class="si-impact-fill" style="width: 28%; background: rgba(100,210,140,0.5);"></div>
+          </div>
+          <span class="si-impact-val">2.8 / 10</span>
+        </div>
+      </div>
+
+      <div class="si-finding si-finding-low">
+        <div class="si-finding-header">
+          <div class="si-finding-left">
+            <span class="si-finding-num">#004</span>
+            <div class="si-finding-severity si-sev-l">
+              <span class="si-sev-dot"></span>
+              LOW
+            </div>
+          </div>
+          <div class="si-finding-meta">
+            <span class="si-finding-date">2024-01-12</span>
+            <span class="si-finding-status si-fstatus-review">IN REVIEW</span>
+          </div>
+        </div>
+        <h3 class="si-finding-title">Refresh Token Not Rotated</h3>
+        <p class="si-finding-desc">
+          JWT refresh tokens remain valid after use. Token rotation on each refresh 
+          exchange is a recommended practice to limit session fixation and token 
+          theft windows. Current implementation reuses token until expiry.
+        </p>
+        <div class="si-finding-tags">
+          <span class="si-ftag">Authentication</span>
+          <span class="si-ftag">JWT</span>
+          <span class="si-ftag">Session</span>
+        </div>
+        <div class="si-finding-impact">
+          <span class="si-impact-label">Impact</span>
+          <div class="si-impact-bar">
+            <div class="si-impact-fill" style="width: 32%; background: rgba(100,210,140,0.5);"></div>
+          </div>
+          <span class="si-impact-val">3.2 / 10</span>
+        </div>
+      </div>
+
+      <div class="si-finding si-finding-info">
+        <div class="si-finding-header">
+          <div class="si-finding-left">
+            <span class="si-finding-num">#005</span>
+            <div class="si-finding-severity si-sev-i">
+              <span class="si-sev-dot"></span>
+              INFO
+            </div>
+          </div>
+          <div class="si-finding-meta">
+            <span class="si-finding-date">2024-01-11</span>
+            <span class="si-finding-status si-fstatus-closed">NOTED</span>
+          </div>
+        </div>
+        <h3 class="si-finding-title">HSTS Not Submitted to Preload List</h3>
+        <p class="si-finding-desc">
+          HSTS header correctly configured but domain not submitted to browser 
+          preload list. Preloading provides HSTS enforcement before first visit, 
+          removing the first-connection vulnerability window.
+        </p>
+        <div class="si-finding-tags">
+          <span class="si-ftag">HSTS</span>
+          <span class="si-ftag">TLS</span>
+          <span class="si-ftag">Hardening</span>
+        </div>
+        <div class="si-finding-impact">
+          <span class="si-impact-label">Impact</span>
+          <div class="si-impact-bar">
+            <div class="si-impact-fill" style="width: 18%; background: rgba(71,193,226,0.5);"></div>
+          </div>
+          <span class="si-impact-val">1.8 / 10</span>
+        </div>
+      </div>
+
+      <!-- Summary card -->
+      <div class="si-findings-summary">
+        <div class="si-summary-title">POSTURE SUMMARY</div>
+        <div class="si-summary-row">
+          <span class="si-sum-k">Critical</span>
+          <span class="si-sum-v si-sum-ok">0</span>
+        </div>
+        <div class="si-summary-row">
+          <span class="si-sum-k">High</span>
+          <span class="si-sum-v si-sum-ok">0</span>
+        </div>
+        <div class="si-summary-row">
+          <span class="si-sum-k">Medium</span>
+          <span class="si-sum-v si-sum-warn">2</span>
+        </div>
+        <div class="si-summary-row">
+          <span class="si-sum-k">Low</span>
+          <span class="si-sum-v">2</span>
+        </div>
+        <div class="si-summary-row">
+          <span class="si-sum-k">Info</span>
+          <span class="si-sum-v si-sum-info">1</span>
+        </div>
+        <div class="si-summary-divider"></div>
+        <div class="si-summary-score">
+          <span class="si-score-val">3.2</span>
+          <span class="si-score-label">/ 10 surface score</span>
+        </div>
+        <div class="si-summary-grade">
+          <span class="si-grade">B+</span>
+          <span class="si-grade-label">Overall Posture</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .si-findings-section {
+    background: #070b14;
+    border-top: 1px solid rgba(71, 193, 226, 0.06);
+  }
+
+  .si-findings-layout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) 220px;
+    gap: 14px;
+    align-items: start;
+  }
+
+  @media (max-width: 1024px) {
+    .si-findings-layout { grid-template-columns: 1fr 1fr; }
+    .si-findings-summary { grid-column: span 2; }
+  }
+
+  @media (max-width: 620px) {
+    .si-findings-layout { grid-template-columns: 1fr; }
+    .si-findings-summary { grid-column: 1; }
+  }
+
+  .si-finding {
+    background: rgba(10, 15, 30, 0.8);
+    border-radius: 6px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.25s, transform 0.2s;
+    border: 1px solid;
+  }
+
+  .si-finding:hover { transform: translateY(-2px); }
+
+  .si-finding-medium {
+    border-color: rgba(230, 180, 80, 0.12);
+    background: rgba(230, 180, 80, 0.02);
+  }
+  .si-finding-medium:hover { border-color: rgba(230, 180, 80, 0.25); }
+
+  .si-finding-low {
+    border-color: rgba(100, 210, 140, 0.1);
+  }
+  .si-finding-low:hover { border-color: rgba(100, 210, 140, 0.22); }
+
+  .si-finding-info {
+    border-color: rgba(71, 193, 226, 0.1);
+  }
+  .si-finding-info:hover { border-color: rgba(71, 193, 226, 0.22); }
+
+  .si-finding-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .si-finding-left, .si-finding-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .si-finding-num { color: rgba(180, 200, 220, 0.25); }
+
+  .si-finding-severity {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    border: 1px solid;
+    font-size: 8px;
+  }
+
+  .si-sev-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+  .si-sev-m { color: rgba(230, 180, 80, 0.8); border-color: rgba(230, 180, 80, 0.2); background: rgba(230, 180, 80, 0.05); }
+  .si-sev-l { color: rgba(100, 210, 140, 0.75); border-color: rgba(100, 210, 140, 0.2); background: rgba(100, 210, 140, 0.04); }
+  .si-sev-i { color: rgba(71, 193, 226, 0.7); border-color: rgba(71, 193, 226, 0.18); background: rgba(71, 193, 226, 0.04); }
+
+  .si-finding-date { color: rgba(180, 200, 220, 0.28); }
+
+  .si-finding-status {
+    font-size: 8px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    border: 1px solid;
+  }
+
+  .si-fstatus-open { color: rgba(230, 180, 80, 0.7); border-color: rgba(230, 180, 80, 0.2); }
+  .si-fstatus-review { color: rgba(71, 193, 226, 0.6); border-color: rgba(71, 193, 226, 0.15); }
+  .si-fstatus-closed { color: rgba(180, 200, 220, 0.35); border-color: rgba(180, 200, 220, 0.1); }
+
+  .si-finding-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(200, 220, 240, 0.82);
+    letter-spacing: 0.01em;
+  }
+
+  .si-finding-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: rgba(180, 200, 220, 0.48);
+  }
+
+  .si-inline-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: rgba(71, 193, 226, 0.7);
+    background: rgba(71, 193, 226, 0.07);
+    padding: 1px 4px;
+    border-radius: 2px;
+  }
+
+  .si-finding-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .si-ftag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    color: rgba(180, 200, 220, 0.35);
+    background: rgba(180, 200, 220, 0.05);
+    border: 1px solid rgba(180, 200, 220, 0.08);
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+
+  .si-finding-impact {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .si-impact-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: rgba(180, 200, 220, 0.3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .si-impact-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(180, 200, 220, 0.06);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .si-impact-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1.5s ease;
+  }
+
+  .si-impact-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: rgba(180, 200, 220, 0.4);
+    flex-shrink: 0;
+  }
+
+  /* Summary card */
+  .si-findings-summary {
+    background: rgba(7, 11, 20, 0.9);
+    border: 1px solid rgba(71, 193, 226, 0.12);
+    border-radius: 6px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: sticky;
+    top: 80px;
+  }
+
+  .si-summary-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: rgba(71, 193, 226, 0.5);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .si-summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+  }
+
+  .si-sum-k { color: rgba(180, 200, 220, 0.4); }
+  .si-sum-v { color: rgba(200, 220, 240, 0.7); }
+  .si-sum-ok { color: rgba(100, 210, 140, 0.7); }
+  .si-sum-warn { color: rgba(230, 180, 80, 0.8); }
+  .si-sum-info { color: rgba(71, 193, 226, 0.7); }
+
+  .si-summary-divider {
+    height: 1px;
+    background: rgba(71, 193, 226, 0.08);
+    margin: 4px 0;
+  }
+
+  .si-summary-score {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .si-score-val {
+    font-family: 'Syne', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: rgba(200, 220, 240, 0.85);
+  }
+
+  .si-score-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: rgba(180, 200, 220, 0.35);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .si-summary-grade {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(100, 210, 140, 0.05);
+    border: 1px solid rgba(100, 210, 140, 0.12);
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+
+  .si-grade {
+    font-family: 'Syne', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    color: rgba(100, 210, 140, 0.8);
+  }
+
+  .si-grade-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: rgba(180, 200, 220, 0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+</style>

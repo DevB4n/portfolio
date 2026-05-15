@@ -1,0 +1,442 @@
+---
+---
+
+<section id="siem" class="si-section si-siem-section">
+  <div class="si-container">
+    <div class="si-section-header si-reveal">
+      <span class="si-section-num">03 / 10</span>
+      <h2 class="si-section-title">SIEM Center</h2>
+      <p class="si-section-desc">Tactical infrastructure monitoring — nodes, traffic, health and anomaly detection.</p>
+    </div>
+
+    <div class="si-siem-grid si-reveal">
+      <!-- Card: Active Nodes -->
+      <div class="si-siem-card si-card-large">
+        <div class="si-card-header">
+          <span class="si-card-label">ACTIVE NODES</span>
+          <span class="si-card-dot si-dot-ok"></span>
+        </div>
+        <div class="si-card-val">24</div>
+        <div class="si-card-sub">+2 from baseline</div>
+        <div class="si-node-grid" id="si-node-grid"></div>
+      </div>
+
+      <!-- Card: DNS Requests -->
+      <div class="si-siem-card">
+        <div class="si-card-header">
+          <span class="si-card-label">DNS REQUESTS</span>
+          <span class="si-card-dot si-dot-ok"></span>
+        </div>
+        <div class="si-card-val si-val-cyan" id="si-dns-count">1,482</div>
+        <div class="si-card-sub">per minute · rolling avg</div>
+        <canvas class="si-mini-chart" id="si-dns-chart" width="200" height="48"></canvas>
+      </div>
+
+      <!-- Card: Traffic Analysis -->
+      <div class="si-siem-card">
+        <div class="si-card-header">
+          <span class="si-card-label">TRAFFIC ANALYSIS</span>
+          <span class="si-card-dot"></span>
+        </div>
+        <div class="si-card-val">94.1%</div>
+        <div class="si-card-sub">legitimate traffic ratio</div>
+        <div class="si-traffic-bar">
+          <div class="si-traffic-seg si-seg-ok" style="width: 94.1%;"></div>
+          <div class="si-traffic-seg si-seg-warn" style="width: 4.2%;"></div>
+          <div class="si-traffic-seg si-seg-err" style="width: 1.7%;"></div>
+        </div>
+        <div class="si-traffic-legend">
+          <span class="si-legend-item si-leg-ok">Clean</span>
+          <span class="si-legend-item si-leg-warn">Suspicious</span>
+          <span class="si-legend-item si-leg-err">Blocked</span>
+        </div>
+      </div>
+
+      <!-- Card: Infrastructure Health -->
+      <div class="si-siem-card">
+        <div class="si-card-header">
+          <span class="si-card-label">INFRA HEALTH</span>
+          <span class="si-card-dot si-dot-ok"></span>
+        </div>
+        <div class="si-health-rows">
+          <div class="si-health-row">
+            <span class="si-health-key">Gateway</span>
+            <div class="si-health-bar-wrap">
+              <div class="si-health-bar" style="--w: 99%; --c: rgba(100,210,140,0.7);"></div>
+            </div>
+            <span class="si-health-pct">99%</span>
+          </div>
+          <div class="si-health-row">
+            <span class="si-health-key">WAF</span>
+            <div class="si-health-bar-wrap">
+              <div class="si-health-bar" style="--w: 100%; --c: rgba(100,210,140,0.7);"></div>
+            </div>
+            <span class="si-health-pct">100%</span>
+          </div>
+          <div class="si-health-row">
+            <span class="si-health-key">Auth</span>
+            <div class="si-health-bar-wrap">
+              <div class="si-health-bar" style="--w: 97%; --c: rgba(71,193,226,0.7);"></div>
+            </div>
+            <span class="si-health-pct">97%</span>
+          </div>
+          <div class="si-health-row">
+            <span class="si-health-key">Database</span>
+            <div class="si-health-bar-wrap">
+              <div class="si-health-bar" style="--w: 99%; --c: rgba(100,210,140,0.7);"></div>
+            </div>
+            <span class="si-health-pct">99%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Threat Status -->
+      <div class="si-siem-card si-card-accent">
+        <div class="si-card-header">
+          <span class="si-card-label">THREAT STATUS</span>
+          <span class="si-card-dot si-dot-warn"></span>
+        </div>
+        <div class="si-threat-status">
+          <div class="si-threat-level">
+            <div class="si-threat-ring"></div>
+            <span class="si-threat-text">LOW</span>
+          </div>
+          <div class="si-threat-details">
+            <div class="si-td-row"><span class="si-td-k">Critical</span><span class="si-td-v si-tv-ok">0</span></div>
+            <div class="si-td-row"><span class="si-td-k">High</span><span class="si-td-v">0</span></div>
+            <div class="si-td-row"><span class="si-td-k">Medium</span><span class="si-td-v si-tv-warn">2</span></div>
+            <div class="si-td-row"><span class="si-td-k">Low</span><span class="si-td-v">3</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .si-siem-section {
+    background: linear-gradient(180deg, #0a0f1e 0%, #070b14 100%);
+    border-top: 1px solid rgba(71, 193, 226, 0.06);
+  }
+
+  .si-siem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .si-siem-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .si-siem-grid { grid-template-columns: 1fr; }
+  }
+
+  .si-siem-card {
+    background: rgba(10, 15, 30, 0.8);
+    border: 1px solid rgba(71, 193, 226, 0.1);
+    border-radius: 6px;
+    padding: 20px;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.3s;
+  }
+
+  .si-siem-card:hover {
+    border-color: rgba(71, 193, 226, 0.2);
+  }
+
+  .si-card-large {
+    grid-column: span 1;
+  }
+
+  .si-card-accent {
+    border-color: rgba(230, 180, 80, 0.12);
+  }
+
+  .si-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .si-card-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    color: rgba(180, 200, 220, 0.4);
+    text-transform: uppercase;
+  }
+
+  .si-card-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(180, 200, 220, 0.3);
+    animation: si-pulse 2s infinite;
+  }
+
+  .si-dot-ok { background: rgba(100, 210, 140, 0.8); box-shadow: 0 0 8px rgba(100, 210, 140, 0.4); }
+  .si-dot-warn { background: rgba(230, 180, 80, 0.8); box-shadow: 0 0 8px rgba(230, 180, 80, 0.4); }
+
+  .si-card-val {
+    font-family: 'Syne', 'IBM Plex Mono', monospace;
+    font-size: 36px;
+    font-weight: 700;
+    color: rgba(200, 220, 240, 0.9);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .si-val-cyan { color: rgba(71, 193, 226, 0.85); }
+
+  .si-card-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: rgba(180, 200, 220, 0.3);
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  /* Node grid */
+  .si-node-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  /* Mini chart */
+  .si-mini-chart {
+    display: block;
+    width: 100%;
+    height: 48px;
+    margin-top: 8px;
+    opacity: 0.7;
+  }
+
+  /* Traffic bar */
+  .si-traffic-bar {
+    display: flex;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    gap: 2px;
+    margin-top: 8px;
+  }
+
+  .si-traffic-seg { height: 100%; border-radius: 2px; }
+  .si-seg-ok { background: rgba(100, 210, 140, 0.6); }
+  .si-seg-warn { background: rgba(230, 180, 80, 0.6); }
+  .si-seg-err { background: rgba(220, 90, 90, 0.5); }
+
+  .si-traffic-legend {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .si-legend-item {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .si-legend-item::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
+  }
+
+  .si-leg-ok { color: rgba(100, 210, 140, 0.7); }
+  .si-leg-ok::before { background: rgba(100, 210, 140, 0.6); }
+  .si-leg-warn { color: rgba(230, 180, 80, 0.7); }
+  .si-leg-warn::before { background: rgba(230, 180, 80, 0.6); }
+  .si-leg-err { color: rgba(220, 90, 90, 0.6); }
+  .si-leg-err::before { background: rgba(220, 90, 90, 0.5); }
+
+  /* Health rows */
+  .si-health-rows { display: flex; flex-direction: column; gap: 10px; }
+
+  .si-health-row {
+    display: grid;
+    grid-template-columns: 64px 1fr 36px;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .si-health-key {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: rgba(180, 200, 220, 0.45);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .si-health-bar-wrap {
+    height: 4px;
+    background: rgba(71, 193, 226, 0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .si-health-bar {
+    height: 100%;
+    width: var(--w);
+    background: var(--c);
+    border-radius: 2px;
+    animation: si-bar-in 1.2s ease forwards;
+    transform-origin: left;
+  }
+
+  .si-health-pct {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: rgba(180, 200, 220, 0.5);
+    text-align: right;
+  }
+
+  /* Threat status */
+  .si-threat-status {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .si-threat-level {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .si-threat-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(230, 180, 80, 0.3);
+    animation: si-pulse-ring 2.5s ease-in-out infinite;
+  }
+
+  .si-threat-ring::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    border: 1px solid rgba(230, 180, 80, 0.2);
+  }
+
+  .si-threat-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: rgba(230, 180, 80, 0.8);
+    position: relative;
+    z-index: 1;
+  }
+
+  .si-threat-details { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+
+  .si-td-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+  }
+
+  .si-td-k { color: rgba(180, 200, 220, 0.4); }
+  .si-td-v { color: rgba(200, 220, 240, 0.7); }
+  .si-tv-ok { color: rgba(100, 210, 140, 0.7); }
+  .si-tv-warn { color: rgba(230, 180, 80, 0.7); }
+
+  @keyframes si-bar-in {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  @keyframes si-pulse-ring {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.06); opacity: 0.3; }
+  }
+</style>
+
+<script>
+  // Node grid
+  const nodeGrid = document.getElementById('si-node-grid');
+  if (nodeGrid) {
+    for (let i = 0; i < 24; i++) {
+      const node = document.createElement('div');
+      const isActive = Math.random() > 0.08;
+      node.style.cssText = `
+        width: 100%; aspect-ratio: 1;
+        border-radius: 2px;
+        background: ${isActive ? 'rgba(71,193,226,0.5)' : 'rgba(71,193,226,0.08)'};
+        border: 1px solid ${isActive ? 'rgba(71,193,226,0.3)' : 'rgba(71,193,226,0.06)'};
+        animation: si-node-pulse ${1.5 + Math.random() * 2}s ease-in-out ${Math.random() * 2}s infinite;
+      `;
+      nodeGrid.appendChild(node);
+    }
+  }
+
+  // DNS mini chart
+  const dnsCanvas = document.getElementById('si-dns-chart') as HTMLCanvasElement;
+  if (dnsCanvas) {
+    const ctx = dnsCanvas.getContext('2d')!;
+    const data: number[] = Array.from({ length: 24 }, () => 0.4 + Math.random() * 0.6);
+    const W = dnsCanvas.width = dnsCanvas.offsetWidth * window.devicePixelRatio || 200;
+    const H = dnsCanvas.height = 48;
+
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H);
+      const step = W / (data.length - 1);
+
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(71,193,226,0.5)';
+      ctx.lineWidth = 1.5;
+      data.forEach((v, i) => {
+        const x = i * step;
+        const y = H - v * (H - 4) - 2;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      // Fill
+      ctx.beginPath();
+      data.forEach((v, i) => {
+        const x = i * step;
+        const y = H - v * (H - 4) - 2;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.lineTo(W, H);
+      ctx.lineTo(0, H);
+      ctx.closePath();
+      const grad = ctx.createLinearGradient(0, 0, 0, H);
+      grad.addColorStop(0, 'rgba(71,193,226,0.2)');
+      grad.addColorStop(1, 'rgba(71,193,226,0)');
+      ctx.fillStyle = grad;
+      ctx.fill();
+    };
+
+    draw();
+
+    setInterval(() => {
+      data.shift();
+      data.push(0.4 + Math.random() * 0.6);
+      draw();
+    }, 1200);
+  }
+</script>

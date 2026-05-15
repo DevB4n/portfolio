@@ -1,0 +1,265 @@
+---
+---
+
+<section class="si-section si-threat-section">
+  <div class="si-container">
+    <div class="si-section-header si-reveal">
+      <span class="si-section-num">01 / 10</span>
+      <h2 class="si-section-title">Live Threat Feed</h2>
+      <p class="si-section-desc">Real-time infrastructure signal monitoring and anomaly detection.</p>
+    </div>
+
+    <!-- Feed panel -->
+    <div class="si-feed-panel si-reveal">
+      <!-- Panel header -->
+      <div class="si-feed-header">
+        <div class="si-feed-header-left">
+          <span class="si-feed-dot si-dot-ok"></span>
+          <span class="si-feed-title">SIEM FEED · ACTIVE</span>
+        </div>
+        <div class="si-feed-header-right">
+          <span class="si-feed-meta">UTC+0 · LIVE</span>
+          <span class="si-feed-count">147 events today</span>
+        </div>
+      </div>
+
+      <!-- Log lines -->
+      <div class="si-feed-body" id="si-feed-body">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+
+    <!-- Stats row -->
+    <div class="si-feed-stats si-reveal">
+      <div class="si-feed-stat">
+        <span class="si-feed-stat-val si-stat-ok">99.8%</span>
+        <span class="si-feed-stat-key">Uptime</span>
+      </div>
+      <div class="si-feed-stat-sep"></div>
+      <div class="si-feed-stat">
+        <span class="si-feed-stat-val">1.2ms</span>
+        <span class="si-feed-stat-key">Avg Latency</span>
+      </div>
+      <div class="si-feed-stat-sep"></div>
+      <div class="si-feed-stat">
+        <span class="si-feed-stat-val si-stat-warn">2</span>
+        <span class="si-feed-stat-key">Flagged Events</span>
+      </div>
+      <div class="si-feed-stat-sep"></div>
+      <div class="si-feed-stat">
+        <span class="si-feed-stat-val">0</span>
+        <span class="si-feed-stat-key">Critical</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .si-threat-section {
+    background: linear-gradient(180deg, #070b14 0%, #0a0f1e 100%);
+    border-top: 1px solid rgba(71, 193, 226, 0.08);
+  }
+
+  .si-feed-panel {
+    background: rgba(10, 15, 30, 0.8);
+    border: 1px solid rgba(71, 193, 226, 0.12);
+    border-radius: 6px;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    margin-bottom: 32px;
+  }
+
+  .si-feed-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: rgba(71, 193, 226, 0.04);
+    border-bottom: 1px solid rgba(71, 193, 226, 0.1);
+  }
+
+  .si-feed-header-left,
+  .si-feed-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .si-feed-title {
+    color: rgba(71, 193, 226, 0.7);
+  }
+
+  .si-feed-meta {
+    color: rgba(180, 200, 220, 0.35);
+  }
+
+  .si-feed-count {
+    color: rgba(180, 200, 220, 0.5);
+    padding: 2px 8px;
+    border: 1px solid rgba(71, 193, 226, 0.12);
+    border-radius: 2px;
+  }
+
+  .si-feed-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: si-pulse 2s infinite;
+  }
+
+  .si-dot-ok {
+    background: rgba(100, 210, 140, 0.8);
+    box-shadow: 0 0 8px rgba(100, 210, 140, 0.5);
+  }
+
+  .si-feed-body {
+    padding: 8px 0;
+    max-height: 320px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .si-feed-body::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: linear-gradient(transparent, rgba(10, 15, 30, 0.95));
+    pointer-events: none;
+  }
+
+  /* Log line styles injected via JS */
+
+  /* Stats */
+  .si-feed-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 20px;
+    background: rgba(10, 15, 30, 0.5);
+    border: 1px solid rgba(71, 193, 226, 0.08);
+    border-radius: 4px;
+  }
+
+  .si-feed-stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .si-feed-stat-sep {
+    width: 1px;
+    height: 40px;
+    background: rgba(71, 193, 226, 0.1);
+    flex-shrink: 0;
+  }
+
+  .si-feed-stat-val {
+    font-family: 'Syne', 'IBM Plex Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: rgba(200, 220, 240, 0.9);
+  }
+
+  .si-stat-ok { color: rgba(100, 210, 140, 0.85); }
+  .si-stat-warn { color: rgba(230, 180, 80, 0.85); }
+
+  .si-feed-stat-key {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: rgba(180, 200, 220, 0.35);
+    text-transform: uppercase;
+  }
+</style>
+
+<script>
+  const logs = [
+    { level: 'INFO', msg: 'Reverse proxy operational — nginx/1.24.0', ts: '14:32:01' },
+    { level: 'TRACE', msg: 'DNS resolution completed — api.internal:53', ts: '14:32:04' },
+    { level: 'OK', msg: 'WAF filtering active — 0 blocks in last 60s', ts: '14:32:07' },
+    { level: 'WARN', msg: 'Missing security headers detected — X-Frame-Options absent', ts: '14:32:11' },
+    { level: 'INFO', msg: 'TLS handshake completed — TLSv1.3 ECDHE-RSA-AES256-GCM', ts: '14:32:14' },
+    { level: 'OK', msg: 'Health check passed — /api/health 200 OK', ts: '14:32:18' },
+    { level: 'TRACE', msg: 'Auth token validated — JWT RS256 exp: +3600s', ts: '14:32:22' },
+    { level: 'WARN', msg: 'Rate limiter threshold approaching — 87/100 req/min', ts: '14:32:25' },
+    { level: 'INFO', msg: 'CDN cache HIT — ratio 94.2% — edge: SAO-01', ts: '14:32:29' },
+    { level: 'OK', msg: 'Database connection pool healthy — 12/20 active', ts: '14:32:33' },
+    { level: 'INFO', msg: 'Outbound webhook delivered — status 200 — latency 41ms', ts: '14:32:37' },
+    { level: 'TRACE', msg: 'Session fingerprint match — HMAC-SHA256 verified', ts: '14:32:41' },
+  ];
+
+  const levelColors: Record<string, string> = {
+    INFO: 'rgba(71,193,226,0.7)',
+    TRACE: 'rgba(150,170,200,0.5)',
+    WARN: 'rgba(230,180,80,0.8)',
+    OK: 'rgba(100,210,140,0.7)',
+    ERROR: 'rgba(220,80,80,0.8)',
+  };
+
+  const levelBg: Record<string, string> = {
+    INFO: 'rgba(71,193,226,0.06)',
+    TRACE: 'rgba(150,170,200,0.03)',
+    WARN: 'rgba(230,180,80,0.06)',
+    OK: 'rgba(100,210,140,0.04)',
+    ERROR: 'rgba(220,80,80,0.08)',
+  };
+
+  const container = document.getElementById('si-feed-body');
+  if (container) {
+    let idx = 0;
+
+    const addLine = () => {
+      const log = logs[idx % logs.length];
+      idx++;
+
+      const line = document.createElement('div');
+      line.style.cssText = `
+        display: flex; align-items: center; gap: 16px;
+        padding: 8px 20px; font-family: 'IBM Plex Mono', monospace;
+        font-size: 11px; border-bottom: 1px solid rgba(71,193,226,0.04);
+        background: ${levelBg[log.level] || 'transparent'};
+        animation: si-log-in 0.35s ease forwards;
+        opacity: 0;
+      `;
+
+      line.innerHTML = `
+        <span style="color: rgba(180,200,220,0.3); flex-shrink:0;">${log.ts}</span>
+        <span style="
+          color: ${levelColors[log.level] || '#fff'};
+          font-size: 9px; letter-spacing: 0.15em;
+          padding: 2px 6px;
+          border: 1px solid ${levelColors[log.level] || '#fff'};
+          border-radius: 2px; flex-shrink: 0;
+          opacity: 0.9;
+        ">${log.level}</span>
+        <span style="color: rgba(200,220,240,0.65); flex: 1;">${log.msg}</span>
+        <span style="width:6px;height:6px;border-radius:50%;background:${levelColors[log.level]};flex-shrink:0;"></span>
+      `;
+
+      // Prepend (newest at top)
+      container.insertBefore(line, container.firstChild);
+
+      // Keep max 10 visible
+      while (container.children.length > 10) {
+        container.removeChild(container.lastChild!);
+      }
+    };
+
+    // Initial fill
+    for (let i = 0; i < 8; i++) addLine();
+
+    // Live updates
+    setInterval(addLine, 2800);
+  }
+</script>
